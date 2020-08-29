@@ -15,6 +15,7 @@ class CreateRowsTable extends Migration
     {
         Schema::create('rows', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->foreignId('machine_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

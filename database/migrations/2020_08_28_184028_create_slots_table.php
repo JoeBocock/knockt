@@ -15,6 +15,7 @@ class CreateSlotsTable extends Migration
     {
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->foreignId('row_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->timestamps();
