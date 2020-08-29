@@ -41,10 +41,29 @@ One of the only changes I've made is extending `\Illuminate\Foundation\Http\Form
 
 I'm also following the [Microsoft API Best Practices](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design) document as much as possible as I believe it to be one of the clearest design methodologies for API response structure.
 
+## Getting Setup
+
+Whether you've decided to clone it to have a mess around or would like to use this as a teaching tool, getting setup should be incredibly straight forward.
+
+I personally develop on MacOS so I leverage [Valet](https://laravel.com/docs/7.x/valet). For a database I use a locally hosted one managed by a tool called [DBngin](https://dbngin.com/). Finnaly just configure your ENV file accordingly. 
+
+I've nested the migration of the database into the running of PHP Unit. So if you plan to utilise PHP unit, simply run the entire feature set and your database will be ready to go (including seeded!). If you don't plan to use PHP Unit testing, simply run `php artisan migrate --seed`.
+
+If you happen to be on Linux, fear not! cpriego has created [Valet Linux](https://github.com/cpriego/valet-linux).
+
+Finally, if you're on Windows I would suggest looking into Docker or Vagrant. Note that Laravel has an in house box called [Homestead](https://laravel.com/docs/7.x/homestead) for Vagrant and you can get setup relatively quickly.
+
 ## Vending Machines
 
 -   Has many Rows
--   Has an Active State
+
+| Method | Path                 | Description                 |
+|--------|----------------------|-----------------------------|
+| GET    | `/api/machines`      | Lists all Machines          |
+| POST   | `/api/machines`      | Store a new machine         |
+| GET    | `/api/machines/{id}` | Retrieve a specific machine |
+| PUT    | `/api/machines/{id}` | Update an existing machine  |
+| DELETE | `/api/machines/{id}` | Remove an existing machine  |
 
 ## Rows
 
