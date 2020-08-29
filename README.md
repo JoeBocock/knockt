@@ -1,6 +1,5 @@
 <br/>
-<p align="center"><img src="logo.png" width="400"></p>
-<br/>
+<p align="center"><img src="logo.png" width="250"></p>
 <br/>
 
 # About Knockt
