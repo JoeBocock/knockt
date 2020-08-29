@@ -25,7 +25,7 @@ class StoreMachineRequest extends KnocktFormRequest
     {
         return [
             'name' => 'required|max:255',
-            'status' => 'required|boolean',
+            'status' => 'required|gte:0|lte:2',
         ];
     }
 }
