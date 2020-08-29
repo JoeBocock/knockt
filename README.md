@@ -55,8 +55,6 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 
 ## Vending Machines
 
--   Has many Rows
-
 | Method | Path                 | Description                 |
 |--------|----------------------|-----------------------------|
 | GET    | `/api/machines`      | Lists all Machines          |
