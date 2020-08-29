@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 interface UpdateHandlerInterface
 {
     /**
-     * Undocumented function
-     *
      * Preform update assigment and save.
      *
      * @param Model $model
