@@ -22,9 +22,9 @@ class DeletionTest extends TestCase
     {
         $machine = Machine::create(['name' => 'Chocolate Station']);
 
-        $row = Row::create(['machine_id' => $machine->id]);
+        $row = Row::create(['name' => 'Row', 'machine_id' => $machine->id]);
 
-        Slot::create(['row_id' => $row->id]);
+        Slot::create(['name' => 'Slot', 'row_id' => $row->id]);
 
         $machine->delete();
 
