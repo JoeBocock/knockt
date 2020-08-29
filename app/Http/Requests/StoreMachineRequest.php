@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Common\API\KnocktFormRequest;
 
-class StoreMachineRequest extends FormRequest
+class StoreMachineRequest extends KnocktFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
