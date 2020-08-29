@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\MethodImplementationException;
+use App\Common\Handlers\UpdateMachineHandler;
 use App\Exceptions\NotFoundException;
+use App\Exceptions\UpdateNotFoundException;
 use App\Http\Requests\StoreMachineRequest;
+use App\Http\Requests\UpdateMachineRequest;
 use App\Http\Resources\Machine as MachineResource;
 use App\Http\Resources\MachineCollection;
 use App\Machine;
-use Illuminate\Http\Request;
 
 class MachineController extends Controller
 {
@@ -53,15 +54,21 @@ class MachineController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateMachineRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMachineRequest $request, $id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        $machine = Machine::find($id);
+
+        if (!$machine) {
+            return (new UpdateNotFoundException())->respond();
+        }
+
+        return new MachineResource(
+            UpdateMachineHandler::update($machine, $request->validated())
+        );
     }
 
     /**
