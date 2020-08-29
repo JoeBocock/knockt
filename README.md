@@ -2,6 +2,9 @@
 <p align="center"><img src="logo.png" width="250"></p>
 
 <p align="center"> 
+    <a href="https://twitter.com/Joe_Bocock">
+        <img src="https://img.shields.io/twitter/follow/Joe_Bocock?style=social&logo=twitter" alt="Twitter">
+    </a>
     <a href="https://github.com/JoeBocock/knockt/blob/master/LICENSE">
         <img src="https://img.shields.io/static/v1?label=Build&message=passing&color=success" alt="Build">
     </a>
@@ -11,18 +14,18 @@
     <a href="https://github.com/JoeBocock/knockt/issues">
         <img src="https://img.shields.io/github/issues/JoeBocock/knockt" alt="Issues">
     </a>
-    <a href="https://twitter.com/Joe_Bocock">
-        <img src="https://img.shields.io/twitter/follow/Joe_Bocock?style=social&logo=twitter" alt="Twitter">
-    </a>
+    <img src="https://img.shields.io/badge/Elementary-My%20dear%20Watson-orange" alt="Elementary">
 </p>
 
 # About Knockt
 
-Knockt is an API that simulates the processes of vending machine management.
+Knockt is a learning resource API that simulates the processes of vending machines.
 
-This purely exists to demonstrate the features of Laravel out of the box and to be used as a teaching tool for members of my workplace team. Feel free to take and adapt this as much as you want.
+This concept provides a lot of potential to leverage Eloquent relationships and utilise many of the features people often see as ✨*magic*✨.
 
-As this project continues to grow and be worked on I will update this README endpoint information etc however if I find that it gets too cluttered, I may move it off to another more dedicated site.
+This purely exists to demonstrate the features of Laravel out of the box and to be used as a teaching tool for members of my workplace team. I aim to use everything available in Laravel in some capacity while attempting to do it as simply as possible. With the previous being said, it should hopefully lead to a great teaching resource eventually.
+
+As this project continues to grow and be worked on I will update this README with endpoint information etc however if I find that it gets too cluttered, I may move it off to another more dedicated site.
 
 -   [Vending Machines](#vending-machines)
 -   [Machine Rows](#rows)
