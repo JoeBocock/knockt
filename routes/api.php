@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 | [GET] /api/machines                  Lists all of this resource type
 | [POST] /api/machines                 Store a new machine
-| [GET] /api/machines/{short_name}     Retrieve a specific machine
-| [PUT] /api/machines/{short_name}     Update an existing machine
-| [DELETE] /api/machines/{short_name}  Remove an existing machine
+| [GET] /api/machines/{id}     Retrieve a specific machine
+| [PUT] /api/machines/{id}     Update an existing machine
+| [DELETE] /api/machines/{id}  Remove an existing machine
 |
 */
 Route::apiResource('machines', 'MachineController');
@@ -36,9 +36,9 @@ Route::apiResource('machines', 'MachineController');
 |
 | [GET] /api/rows                  Lists all of this resource type
 | [POST] /api/rows                 Store a new row
-| [GET] /api/rows/{short_name}     Retrieve a specific row
-| [PUT] /api/rows/{short_name}     Update an existing row
-| [DELETE] /api/rows/{short_name}  Remove an existing row
+| [GET] /api/rows/{id}     Retrieve a specific row
+| [PUT] /api/rows/{id}     Update an existing row
+| [DELETE] /api/rows/{id}  Remove an existing row
 |
 */
 Route::apiResource('rows', 'RowController');
@@ -52,9 +52,9 @@ Route::apiResource('rows', 'RowController');
 |
 | [GET] /api/slots                  Lists all of this resource type
 | [POST] /api/slots                 Store a new slot
-| [GET] /api/slots/{short_name}     Retrieve a specific slot
-| [PUT] /api/slots/{short_name}     Update an existing slot
-| [DELETE] /api/slots/{short_name}  Remove an existing slot
+| [GET] /api/slots/{id}     Retrieve a specific slot
+| [PUT] /api/slots/{id}     Update an existing slot
+| [DELETE] /api/slots/{id}  Remove an existing slot
 |
 */
 Route::apiResource('slots', 'SlotController');
@@ -68,9 +68,9 @@ Route::apiResource('slots', 'SlotController');
 |
 | [GET] /api/products                  Lists all of this resource type
 | [POST] /api/products                 Store a new product
-| [GET] /api/products/{short_name}     Retrieve a specific product
-| [PUT] /api/products/{short_name}     Update an existing product
-| [DELETE] /api/products/{short_name}  Remove an existing product
+| [GET] /api/products/{id}     Retrieve a specific product
+| [PUT] /api/products/{id}     Update an existing product
+| [DELETE] /api/products/{id}  Remove an existing product
 |
 */
 Route::apiResource('products', 'ProductController');
