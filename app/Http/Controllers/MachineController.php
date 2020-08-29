@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateMachineRequest;
 use App\Http\Resources\Machine as MachineResource;
 use App\Http\Resources\MachineCollection;
 use App\Machine;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class MachineController extends Controller
 {
@@ -79,6 +81,14 @@ class MachineController extends Controller
      */
     public function destroy($id)
     {
-        Machine::findOrFail($id);
+        $machine = Machine::find($id);
+
+        if (!$machine) {
+            return (new NotFoundException())->respond();
+        }
+
+        $machine->delete();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
