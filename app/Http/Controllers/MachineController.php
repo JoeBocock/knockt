@@ -30,7 +30,9 @@ class MachineController extends Controller
      */
     public function store(StoreMachineRequest $request)
     {
-        return response()->json(['test' => $request]);
+        $machine = (new Machine($request->validated()))->save();
+
+        return new MachineResource($machine);
     }
 
     /**
