@@ -30,9 +30,7 @@ class MachineController extends Controller
      */
     public function store(StoreMachineRequest $request)
     {
-        $machine = (new Machine($request->validated()))->save();
-
-        return new MachineResource($machine);
+        return new MachineResource(Machine::create($request->validated()));
     }
 
     /**
