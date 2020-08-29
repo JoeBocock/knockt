@@ -6,10 +6,10 @@
         <img src="https://img.shields.io/static/v1?label=Build&message=passing&color=success" alt="Build">
     </a>
     <a href="https://github.com/JoeBocock/knockt/blob/master/LICENSE">
-        <img src="https://img.shields.io/static/v1?label=Licence&message=MIT&color=9cf" alt="License">
+        <img src="https://img.shields.io/github/license/JoeBocock/knockt" alt="License">
     </a>
     <a href="https://github.com/JoeBocock/knockt/issues">
-        <img src="https://img.shields.io/static/v1?label=Issues&message=0&color=blue" alt="Issues">
+        <img src="https://img.shields.io/github/issues/JoeBocock/knockt" alt="Issues">
     </a>
     <a href="https://twitter.com/Joe_Bocock">
         <img src="https://img.shields.io/twitter/follow/Joe_Bocock?style=social&logo=twitter" alt="Twitter">
