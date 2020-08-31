@@ -45,7 +45,9 @@ class RowTest extends TestCase
      */
     public function it_can_be_updated(): void
     {
-        $response = $this->put('/api/rows/' . rand(1, 10), factory(Row::class)->raw());
+        $row = Row::first();
+
+        $response = $this->put('/api/rows/' . $row->id, factory(Row::class)->raw());
 
         $response->assertStatus(200);
     }
