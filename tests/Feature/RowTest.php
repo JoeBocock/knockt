@@ -28,6 +28,10 @@ class RowTest extends TestCase
      */
     public function it_can_be_stored(): void
     {
+        $row = factory(Row::class)->raw();
+
+        $row['machine_id'] = Row::first()->id;
+
         $response = $this->post('/api/rows', factory(Row::class)->raw());
 
         $response->assertStatus(201);
