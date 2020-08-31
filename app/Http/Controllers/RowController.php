@@ -2,8 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\MethodImplementationException;
+use App\Common\Handlers\UpdateRowHandler;
+use App\Exceptions\NotFoundException;
+use App\Exceptions\UpdateNotFoundException;
+use App\Http\Requests\IndexRowsRequest;
+use App\Http\Requests\StoreRowRequest;
+use App\Http\Requests\UpdateRowRequest;
+use App\Http\Resources\Row\Collections\RowCollection;
+use App\Http\Resources\Row\Row as RowResource;
+use App\Row;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class RowController extends Controller
 {
@@ -12,11 +22,9 @@ class RowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(IndexRowsRequest $request)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return new RowCollection(Row::where('machine_id', $request->machine_id)->get());
     }
 
     /**
@@ -25,11 +33,9 @@ class RowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRowRequest $request)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return new RowResource(Row::create($request->validated()));
     }
 
     /**
@@ -40,9 +46,13 @@ class RowController extends Controller
      */
     public function show($id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        $row = Row::find($id);
+
+        if (!$row) {
+            return (new NotFoundException())->respond();
+        }
+
+        return new RowResource($row);
     }
 
     /**
@@ -52,11 +62,17 @@ class RowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRowRequest $request, $id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        $row = Row::find($id);
+
+        if (!$row) {
+            return (new UpdateNotFoundException())->respond();
+        }
+
+        return new RowResource(
+            UpdateRowHandler::update($row, $request->validated())
+        );
     }
 
     /**
@@ -67,8 +83,14 @@ class RowController extends Controller
      */
     public function destroy($id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        $row = Row::find($id);
+
+        if (!$row) {
+            return (new NotFoundException())->respond();
+        }
+
+        $row->delete();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
