@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UpdateMachineHandler implements UpdateHandlerInterface
 {
     /**
-     * Undocumented function
+     * Update a single machine.
      *
      * Preform update assigment and save.
      *
