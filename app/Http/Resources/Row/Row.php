@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Row;
 
-use App\Common\Labels\MachineLabel;
+use App\Http\Resources\Machine\RelationlessMachine;
+use App\Http\Resources\Slot\Collections\RelationlessSlotCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Machine extends JsonResource
+class Row extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +19,10 @@ class Machine extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'status_value' => $this->status,
-            'status_label' => MachineLabel::Label($this->status),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'rows' => $this->rows
+            'machine' => new RelationlessMachine($this->machine),
+            'slots' => new RelationlessSlotCollection($this->slots),
         ];
     }
 }

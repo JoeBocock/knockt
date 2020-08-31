@@ -1,11 +1,19 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Machine\Collections;
 
+use App\Http\Resources\Machine\RelationlessMachine;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class MachineCollection extends ResourceCollection
+class RelationlessMachineCollection extends ResourceCollection
 {
+    /**
+     * The resource that this resource collects.
+     *
+     * @var string
+     */
+    public $collects = RelationlessMachine::class;
+
     /**
      * Transform the resource collection into an array.
      *
