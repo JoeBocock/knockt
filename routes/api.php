@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 | Used to manage the 'Machine' resource.
 |
-| [GET] /api/machines          Lists all of this resource type
+| [GET] /api/machines          Lists all Machines
 | [POST] /api/machines         Store a new machine
 | [GET] /api/machines/{id}     Retrieve a specific machine
 | [PUT] /api/machines/{id}     Update an existing machine
@@ -34,7 +34,7 @@ Route::apiResource('machines', 'MachineController');
 |
 | Used to manage the 'row' resource.
 |
-| [GET] /api/rows          Lists all of this resource type
+| [GET] /api/rows          Lists all Rows
 | [POST] /api/rows         Store a new row
 | [GET] /api/rows/{id}     Retrieve a specific row
 | [PUT] /api/rows/{id}     Update an existing row
