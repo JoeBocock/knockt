@@ -5,7 +5,7 @@ namespace App\Common\Labels\Concerns;
 trait HavingLabels
 {
     /**
-     * Return a sinlge label.
+     * Return a single label.
      *
      * @param      $val
      * @param null $default
