@@ -54,7 +54,9 @@ class RowTest extends TestCase
      */
     public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/rows/' . rand(1, 10));
+        $row = Row::first();
+
+        $response = $this->delete('/api/rows/' . $row->id);
 
         $response->assertStatus(204);
     }
