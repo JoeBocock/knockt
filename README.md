@@ -6,9 +6,6 @@
         <img src="https://img.shields.io/twitter/follow/Joe_Bocock?style=social&logo=twitter" alt="Twitter">
     </a>
     <a href="https://github.com/JoeBocock/knockt/blob/master/LICENSE">
-        <img src="https://img.shields.io/static/v1?label=Build&message=passing&color=success" alt="Build">
-    </a>
-    <a href="https://github.com/JoeBocock/knockt/blob/master/LICENSE">
         <img src="https://img.shields.io/github/license/JoeBocock/knockt" alt="License">
     </a>
     <a href="https://github.com/JoeBocock/knockt/issues">
