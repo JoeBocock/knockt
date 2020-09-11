@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Common\Handlers\UpdateMachineHandler;
-use App\Exceptions\NotFoundException;
-use App\Exceptions\UpdateNotFoundException;
+use App\Common\Responses\NoContentResponse;
+use App\Common\Responses\NotFoundResponse;
 use App\Http\Requests\StoreMachineRequest;
 use App\Http\Requests\UpdateMachineRequest;
 use App\Http\Resources\Machine\Collections\MachineCollection;
 use App\Http\Resources\Machine\Machine as MachineResource;
 use App\Machine;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 class MachineController extends Controller
 {
@@ -47,7 +45,7 @@ class MachineController extends Controller
         $machine = Machine::find($id);
 
         if (!$machine) {
-            return (new NotFoundException())->respond();
+            return NotFoundResponse::send();
         }
 
         return new MachineResource($machine);
@@ -65,7 +63,7 @@ class MachineController extends Controller
         $machine = Machine::find($id);
 
         if (!$machine) {
-            return (new UpdateNotFoundException())->respond();
+            return NotFoundResponse::send();
         }
 
         return new MachineResource(
@@ -84,11 +82,11 @@ class MachineController extends Controller
         $machine = Machine::find($id);
 
         if (!$machine) {
-            return (new NotFoundException())->respond();
+            return NotFoundResponse::send();
         }
 
         $machine->delete();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return NoContentResponse::send();
     }
 }

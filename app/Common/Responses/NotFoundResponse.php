@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Common\Responses;
 
-use App\Common\Contracts\JsonExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use App\Common\Contracts\ResponseInterface;
 use Illuminate\Http\Response;
 
-class NotFoundException extends Exception implements JsonExceptionInterface
+class NotFoundResponse implements ResponseInterface
 {
     /**
-     * Return of a JSON response upon caught exception.
+     * Return of a JSON response.
      *
      * @return JsonResponse
      */
-    public function respond(): JsonResponse
+    public static function send(): JsonResponse
     {
         return new JsonResponse([
             'error' => 'not_found',
@@ -22,3 +21,4 @@ class NotFoundException extends Exception implements JsonExceptionInterface
         ], Response::HTTP_NOT_FOUND);
     }
 }
+

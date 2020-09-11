@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Common\Handlers\UpdateRowHandler;
-use App\Exceptions\NotFoundException;
-use App\Exceptions\UpdateNotFoundException;
+use App\Common\Responses\NoContentResponse;
+use App\Common\Responses\NotFoundResponse;
 use App\Http\Requests\IndexRowsRequest;
 use App\Http\Requests\StoreRowRequest;
 use App\Http\Requests\UpdateRowRequest;
 use App\Http\Resources\Row\Collections\RowCollection;
 use App\Http\Resources\Row\Row as RowResource;
 use App\Row;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class RowController extends Controller
 {
@@ -30,7 +27,7 @@ class RowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreRowRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRowRequest $request)
@@ -49,7 +46,7 @@ class RowController extends Controller
         $row = Row::find($id);
 
         if (!$row) {
-            return (new NotFoundException())->respond();
+            return NotFoundResponse::send();
         }
 
         return new RowResource($row);
@@ -58,7 +55,7 @@ class RowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateRowRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -67,7 +64,7 @@ class RowController extends Controller
         $row = Row::find($id);
 
         if (!$row) {
-            return (new UpdateNotFoundException())->respond();
+            return NotFoundResponse::send();
         }
 
         return new RowResource(
@@ -86,11 +83,11 @@ class RowController extends Controller
         $row = Row::find($id);
 
         if (!$row) {
-            return (new NotFoundException())->respond();
+            return NotFoundResponse::send();
         }
 
         $row->delete();
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+        return NoContentResponse::send();
     }
 }
