@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\MethodImplementationException;
+use App\Common\Responses\NotFoundResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,9 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return NotFoundResponse::send();
     }
 
     /**
@@ -27,9 +25,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return NotFoundResponse::send();
     }
 
     /**
@@ -40,9 +36,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return NotFoundResponse::send();
     }
 
     /**
@@ -54,9 +48,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return NotFoundResponse::send();
     }
 
     /**
@@ -67,8 +59,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return (new MethodImplementationException(
-            'Method functionality not yet implemented.'
-        ))->respond();
+        return NotFoundResponse::send();
     }
 }
