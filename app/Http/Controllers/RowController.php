@@ -17,6 +17,7 @@ class RowController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\IndexRowsRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function index(IndexRowsRequest $request)
