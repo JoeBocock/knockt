@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Slot;
 
+use App\Http\Resources\Row\RelationlessRow;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Slot extends JsonResource
@@ -19,6 +20,7 @@ class Slot extends JsonResource
             'name' => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'row' => new RelationlessRow($this->row)
         ];
     }
 }
