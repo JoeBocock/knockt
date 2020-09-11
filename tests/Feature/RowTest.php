@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Machine;
 use App\Row;
 use Tests\TestCase;
 
@@ -15,7 +16,7 @@ class RowTest extends TestCase
      */
     public function it_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/rows', ['machine_id' => rand(1, 10)]);
+        $response = $this->call('GET', '/api/rows', ['machine_id' => Machine::first()->id]);
 
         $response->assertStatus(200);
     }
