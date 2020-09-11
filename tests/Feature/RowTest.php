@@ -32,7 +32,7 @@ class RowTest extends TestCase
 
         $row['machine_id'] = Row::first()->machine_id;
 
-        $response = $this->post('/api/rows', factory(Row::class)->raw());
+        $response = $this->post('/api/rows', $row);
 
         $response->assertStatus(201);
     }
