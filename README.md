@@ -6,9 +6,6 @@
         <img src="https://img.shields.io/twitter/follow/Joe_Bocock?style=social&logo=twitter" alt="Twitter">
     </a>
     <a href="https://github.com/JoeBocock/knockt/blob/master/LICENSE">
-        <img src="https://img.shields.io/static/v1?label=Build&message=passing&color=success" alt="Build">
-    </a>
-    <a href="https://github.com/JoeBocock/knockt/blob/master/LICENSE">
         <img src="https://img.shields.io/github/license/JoeBocock/knockt" alt="License">
     </a>
     <a href="https://github.com/JoeBocock/knockt/issues">
@@ -65,8 +62,13 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 
 ## Rows
 
--   Belongs to a Machine
--   Has many Slots
+| Method | Path             | Description                           |
+|--------|------------------|---------------------------------------|
+| GET    | `/api/rows`      | Lists all Rows belonging to a machine |
+| POST   | `/api/rows`      | Store a new Row                       |
+| GET    | `/api/rows/{id}` | Retrieve a specific Row               |
+| PUT    | `/api/rows/{id}` | Update an existing Row                |
+| DELETE | `/api/rows/{id}` | Remove an existing Row                |
 
 ## Slots
 
