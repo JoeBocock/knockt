@@ -1,5 +1,5 @@
 <br/>
-<p align="center"><img src="logo.png" width="250"></p>
+<p align="center"><img src="Knockt.png" width="336"></p>
 
 <p align="center"> 
     <a href="https://twitter.com/Joe_Bocock">
