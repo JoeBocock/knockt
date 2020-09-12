@@ -74,8 +74,13 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 
 ## Slots
 
--   Belongs to a Row
--   Has a Product
+| Method | Path              | Description                            |
+|--------|-------------------|----------------------------------------|
+| GET    | `/api/slots`      | Lists all Slots belonging to a machine |
+| POST   | `/api/slots`      | Store a new Slot                       |
+| GET    | `/api/slots/{id}` | Retrieve a specific Slot               |
+| PUT    | `/api/slots/{id}` | Update an existing Slot                |
+| DELETE | `/api/slots/{id}` | Remove an existing Slot                |
 
 ## Product
 
