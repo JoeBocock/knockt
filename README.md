@@ -1,5 +1,5 @@
 <br/>
-<p align="center"><img src="logo.png" width="250"></p>
+<p align="center"><img src="Knockt.png" width="336"></p>
 
 <p align="center"> 
     <a href="https://twitter.com/Joe_Bocock">
@@ -23,6 +23,8 @@ This concept provides a lot of potential to leverage Eloquent relationships and 
 This purely exists to demonstrate the features of Laravel out of the box and to be used as a teaching tool for members of my workplace team. I aim to use everything available in Laravel in some capacity while attempting to do it as simply as possible. With the previous being said, it should hopefully lead to a great teaching resource eventually.
 
 As this project continues to grow and be worked on I will update this README with endpoint information etc however if I find that it gets too cluttered, I may move it off to another more dedicated site.
+
+Interested in some front end concept designs? Check out my login form concept for this project on [CodePen](https://codepen.io/joebocock/pen/NWNMzgP)!
 
 -   [Vending Machines](#vending-machines)
 -   [Machine Rows](#rows)
