@@ -24,6 +24,8 @@ This purely exists to demonstrate the features of Laravel out of the box and to 
 
 As this project continues to grow and be worked on I will update this README with endpoint information etc however if I find that it gets too cluttered, I may move it off to another more dedicated site.
 
+Interested in some front end concept designs? Check out my login form concept for this project on [CodePen](https://codepen.io/joebocock/pen/NWNMzgP)!
+
 -   [Vending Machines](#vending-machines)
 -   [Machine Rows](#rows)
 -   [Row Slots](#row-slots)
