@@ -48,7 +48,9 @@ class RowTest extends TestCase
     {
         $row = Row::first();
 
-        $response = $this->put('/api/rows/' . $row->id, factory(Row::class)->raw());
+        $row['name'] = 'Test';
+
+        $response = $this->put('/api/rows/' . $row->id, $row->toArray());
 
         $response->assertStatus(200);
     }
