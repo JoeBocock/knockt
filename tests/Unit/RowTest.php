@@ -1,11 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
-use App\Product;
+use App\Row;
+use App\Machine;
 use Tests\TestCase;
 
-class ProductTest extends TestCase
+class RowTest extends TestCase
 {
     /**
      * Index the resource.
@@ -15,7 +16,7 @@ class ProductTest extends TestCase
      */
     public function they_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/products');
+        $response = $this->call('GET', '/api/rows', ['machine_id' => Machine::first()->id]);
 
         $response->assertStatus(200);
     }
@@ -28,7 +29,11 @@ class ProductTest extends TestCase
      */
     public function it_can_be_stored(): void
     {
-        $response = $this->post('/api/products', factory(Product::class)->raw());
+        $row = factory(Row::class)->raw();
+
+        $row['machine_id'] = Row::first()->machine_id;
+
+        $response = $this->post('/api/rows', $row);
 
         $response->assertStatus(201);
     }
@@ -41,7 +46,7 @@ class ProductTest extends TestCase
      */
     public function it_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/products/' . Product::first()->id);
+        $response = $this->call('GET', '/api/rows/' . Row::first()->id);
 
         $response->assertStatus(200);
     }
@@ -54,11 +59,11 @@ class ProductTest extends TestCase
      */
     public function it_can_be_updated(): void
     {
-        $product = Product::first();
+        $row = Row::first();
 
-        $product['price'] = 4000;
+        $row['name'] = 'Test';
 
-        $response = $this->put('/api/products/' . $product->id, $product->toArray());
+        $response = $this->put('/api/rows/' . $row->id, $row->toArray());
 
         $response->assertStatus(200);
     }
@@ -71,7 +76,7 @@ class ProductTest extends TestCase
      */
     public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/products/' . Product::first()->id);
+        $response = $this->delete('/api/rows/' . Row::first()->id);
 
         $response->assertStatus(204);
     }

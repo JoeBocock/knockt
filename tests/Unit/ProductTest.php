@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
-use App\Row;
-use App\Machine;
+use App\Product;
 use Tests\TestCase;
 
-class RowTest extends TestCase
+class ProductTest extends TestCase
 {
     /**
      * Index the resource.
@@ -16,7 +15,7 @@ class RowTest extends TestCase
      */
     public function they_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/rows', ['machine_id' => Machine::first()->id]);
+        $response = $this->call('GET', '/api/products');
 
         $response->assertStatus(200);
     }
@@ -29,11 +28,7 @@ class RowTest extends TestCase
      */
     public function it_can_be_stored(): void
     {
-        $row = factory(Row::class)->raw();
-
-        $row['machine_id'] = Row::first()->machine_id;
-
-        $response = $this->post('/api/rows', $row);
+        $response = $this->post('/api/products', factory(Product::class)->raw());
 
         $response->assertStatus(201);
     }
@@ -46,7 +41,7 @@ class RowTest extends TestCase
      */
     public function it_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/rows/' . Row::first()->id);
+        $response = $this->call('GET', '/api/products/' . Product::first()->id);
 
         $response->assertStatus(200);
     }
@@ -59,11 +54,11 @@ class RowTest extends TestCase
      */
     public function it_can_be_updated(): void
     {
-        $row = Row::first();
+        $product = Product::first();
 
-        $row['name'] = 'Test';
+        $product['price'] = 4000;
 
-        $response = $this->put('/api/rows/' . $row->id, $row->toArray());
+        $response = $this->put('/api/products/' . $product->id, $product->toArray());
 
         $response->assertStatus(200);
     }
@@ -76,7 +71,7 @@ class RowTest extends TestCase
      */
     public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/rows/' . Row::first()->id);
+        $response = $this->delete('/api/products/' . Product::first()->id);
 
         $response->assertStatus(204);
     }

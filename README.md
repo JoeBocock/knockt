@@ -82,7 +82,7 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 | PUT    | `/api/slots/{id}` | Update an existing Slot                |
 | DELETE | `/api/slots/{id}` | Remove an existing Slot                |
 
-## Product
+## Products
 
 | Method | Path                 | Description                 |
 |--------|----------------------|-----------------------------|
