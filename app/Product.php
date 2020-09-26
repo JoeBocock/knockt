@@ -8,6 +8,6 @@ class Product extends Model
 {
     public function slots()
     {
-        return $this->belongsToMany(Slot::class);
+        return $this->hasMany(Slot::class);
     }
 }
