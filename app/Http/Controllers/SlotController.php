@@ -94,6 +94,6 @@ class SlotController extends Controller
 
         $slot->product->decrement('stock', 1);
 
-        return response()->json(['success' => false]);
+        return NoContentResponse::send();
     }
 }
