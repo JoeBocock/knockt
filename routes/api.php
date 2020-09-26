@@ -56,12 +56,12 @@ Route::apiResource('rows', 'RowController');
 | [PUT] /api/slots/{id}     Update an existing slot
 | [DELETE] /api/slots/{id}  Remove an existing slot
 |
-| [POST] /api/slots/purchase Purchase the product within a slot.
+| [POST] /api/slots/{slot}/purchase Purchase the product within a slot.
 |
 */
 Route::apiResource('slots', 'SlotController');
 
-Route::post('/slots/purchase', 'SlotController@purchaseProductInSlot');
+Route::post('/slots/{slot}/purchase', 'SlotController@purchaseProductInSlot');
 
 /*
 |--------------------------------------------------------------------------
