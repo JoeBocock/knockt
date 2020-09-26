@@ -84,4 +84,34 @@ class SlotTest extends TestCase
 
         $response->assertStatus(204);
     }
+
+    /**
+     * Purchase the slots current product.
+     *
+     * @test
+     * @return void
+     */
+    public function its_product_can_be_purchased(): void
+    {
+        $slot = Slot::first();
+
+        $response = $this->post('/api/slots/' . $slot->id . '/purchase', ['amount' => 9999]);
+
+        $response->assertStatus(204);
+    }
+
+    /**
+     * Purchase the slots current product.
+     *
+     * @test
+     * @return void
+     */
+    public function must_have_sufficient_funds(): void
+    {
+        $slot = Slot::first();
+
+        $response = $this->post('/api/slots/' . $slot->id . '/purchase', ['amount' => 1]);
+
+        $response->assertStatus(422);
+    }
 }
