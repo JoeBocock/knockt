@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Slot;
+use App\Http\Requests\StoreSlotRequest;
+use App\Http\Requests\IndexSlotsRequest;
+use App\Http\Requests\UpdateSlotRequest;
 use App\Common\Handlers\UpdateSlotHandler;
 use App\Common\Responses\NoContentResponse;
-use App\Common\Responses\NotFoundResponse;
-use App\Http\Requests\IndexSlotsRequest;
-use App\Http\Requests\StoreSlotRequest;
-use App\Http\Requests\UpdateSlotRequest;
-use App\Http\Resources\Slot\Collections\SlotCollection;
 use App\Http\Resources\Slot\Slot as SlotResource;
-use App\Slot;
+use App\Http\Resources\Slot\Collections\SlotCollection;
 
 class SlotController extends Controller
 {
@@ -42,15 +41,9 @@ class SlotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Slot $slot)
     {
-        $row = Slot::find($id);
-
-        if (!$row) {
-            return NotFoundResponse::send();
-        }
-
-        return new SlotResource($row);
+        return new SlotResource($slot);
     }
 
     /**
@@ -60,14 +53,8 @@ class SlotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSlotRequest $request, $id)
+    public function update(UpdateSlotRequest $request, Slot $slot)
     {
-        $slot = Slot::find($id);
-
-        if (!$slot) {
-            return NotFoundResponse::send();
-        }
-
         return new SlotResource(
             UpdateSlotHandler::update($slot, $request->validated())
         );
@@ -79,15 +66,9 @@ class SlotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Slot $slot)
     {
-        $row = Slot::find($id);
-
-        if (!$row) {
-            return NotFoundResponse::send();
-        }
-
-        $row->delete();
+        $slot->delete();
 
         return NoContentResponse::send();
     }

@@ -44,7 +44,7 @@ I'm also following the [Microsoft API Best Practices](https://docs.microsoft.com
 
 Whether you've decided to clone it to have a mess around or would like to use this as a teaching tool, getting setup should be incredibly straight forward.
 
-I personally develop on MacOS so I leverage [Valet](https://laravel.com/docs/7.x/valet). For a database I use a locally hosted one managed by a tool called [DBngin](https://dbngin.com/). Finaly just configure your ENV file accordingly.
+I personally develop on MacOS so I leverage [Valet](https://laravel.com/docs/7.x/valet). For a database I use a locally hosted one managed by a tool called [DBngin](https://dbngin.com/). Finally, just configure your ENV file accordingly.
 
 I've nested the migration of the database into the running of PHP Unit. So if you plan to utilise PHP unit, simply run the entire feature set and your database will be ready to go (including seeded!). If you don't plan to use PHP Unit testing, simply run `php artisan migrate --seed`.
 

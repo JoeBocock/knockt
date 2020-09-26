@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\Common\Responses\NotFoundResponse;
 use App\Http\Requests\StoreProductRequest;
 use App\Common\Responses\NoContentResponse;
 use App\Http\Requests\UpdateProductRequest;
@@ -40,32 +39,20 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return NotFoundResponse::send();
-        }
-
         return new ProductResource($product);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateProductRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return NotFoundResponse::send();
-        }
-
         return new ProductResource(
             UpdateProductHandler::update($product, $request->validated())
         );
@@ -77,14 +64,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return NotFoundResponse::send();
-        }
-
         $product->delete();
 
         return NoContentResponse::send();

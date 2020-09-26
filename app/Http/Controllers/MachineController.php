@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Common\Handlers\UpdateMachineHandler;
-use App\Common\Responses\NoContentResponse;
-use App\Common\Responses\NotFoundResponse;
-use App\Http\Requests\StoreMachineRequest;
-use App\Http\Requests\UpdateMachineRequest;
-use App\Http\Resources\Machine\Collections\MachineCollection;
-use App\Http\Resources\Machine\Machine as MachineResource;
 use App\Machine;
+use App\Http\Requests\StoreMachineRequest;
+use App\Common\Responses\NoContentResponse;
+use App\Http\Requests\UpdateMachineRequest;
+use App\Common\Handlers\UpdateMachineHandler;
+use App\Http\Resources\Machine\Machine as MachineResource;
+use App\Http\Resources\Machine\Collections\MachineCollection;
 
 class MachineController extends Controller
 {
@@ -40,14 +39,8 @@ class MachineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Machine $machine)
     {
-        $machine = Machine::find($id);
-
-        if (!$machine) {
-            return NotFoundResponse::send();
-        }
-
         return new MachineResource($machine);
     }
 
@@ -58,14 +51,8 @@ class MachineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMachineRequest $request, $id)
+    public function update(UpdateMachineRequest $request, Machine $machine)
     {
-        $machine = Machine::find($id);
-
-        if (!$machine) {
-            return NotFoundResponse::send();
-        }
-
         return new MachineResource(
             UpdateMachineHandler::update($machine, $request->validated())
         );
@@ -77,14 +64,8 @@ class MachineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Machine $machine)
     {
-        $machine = Machine::find($id);
-
-        if (!$machine) {
-            return NotFoundResponse::send();
-        }
-
         $machine->delete();
 
         return NoContentResponse::send();

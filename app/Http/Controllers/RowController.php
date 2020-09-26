@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Row;
+use App\Http\Requests\StoreRowRequest;
+use App\Http\Requests\IndexRowsRequest;
+use App\Http\Requests\UpdateRowRequest;
 use App\Common\Handlers\UpdateRowHandler;
 use App\Common\Responses\NoContentResponse;
-use App\Common\Responses\NotFoundResponse;
-use App\Http\Requests\IndexRowsRequest;
-use App\Http\Requests\StoreRowRequest;
-use App\Http\Requests\UpdateRowRequest;
-use App\Http\Resources\Row\Collections\RowCollection;
 use App\Http\Resources\Row\Row as RowResource;
-use App\Row;
+use App\Http\Resources\Row\Collections\RowCollection;
 
 class RowController extends Controller
 {
@@ -42,14 +41,8 @@ class RowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Row $row)
     {
-        $row = Row::find($id);
-
-        if (!$row) {
-            return NotFoundResponse::send();
-        }
-
         return new RowResource($row);
     }
 
@@ -60,14 +53,8 @@ class RowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRowRequest $request, $id)
+    public function update(UpdateRowRequest $request, Row $row)
     {
-        $row = Row::find($id);
-
-        if (!$row) {
-            return NotFoundResponse::send();
-        }
-
         return new RowResource(
             UpdateRowHandler::update($row, $request->validated())
         );
@@ -79,14 +66,8 @@ class RowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Row $row)
     {
-        $row = Row::find($id);
-
-        if (!$row) {
-            return NotFoundResponse::send();
-        }
-
         $row->delete();
 
         return NoContentResponse::send();
