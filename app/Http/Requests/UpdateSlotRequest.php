@@ -25,7 +25,7 @@ class UpdateSlotRequest extends KnocktFormRequest
     {
         return [
             'name' => 'required|max:255',
-            'row_id' => 'required|exists:rows,id',
+            'row_id' => 'required|integer|exists:rows,id',
         ];
     }
 }

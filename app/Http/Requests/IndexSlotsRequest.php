@@ -24,7 +24,7 @@ class IndexSlotsRequest extends KnocktFormRequest
     public function rules()
     {
         return [
-            'row_id' => 'required|exists:rows,id',
+            'row_id' => 'required|integer|exists:rows,id',
         ];
     }
 }

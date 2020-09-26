@@ -25,7 +25,7 @@ class UpdateMachineRequest extends KnocktFormRequest
     {
         return [
             'name' => 'required|max:255',
-            'status' => 'required|gte:0|lte:2',
+            'status' => 'required|integer|gte:0|lte:2',
         ];
     }
 }

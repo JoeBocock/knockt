@@ -24,7 +24,7 @@ class IndexRowsRequest extends KnocktFormRequest
     public function rules()
     {
         return [
-            'machine_id' => 'required|exists:machines,id',
+            'machine_id' => 'required|integer|exists:machines,id',
         ];
     }
 }

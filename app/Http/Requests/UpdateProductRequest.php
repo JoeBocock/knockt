@@ -25,8 +25,8 @@ class UpdateProductRequest extends KnocktFormRequest
     {
         return [
             'name' => 'required|max:255',
-            'price' => 'required|int|min:0|max:99999',
-            'stock' => 'required|int|min:-1|max:99999',
+            'price' => 'required|integer|min:0|max:99999',
+            'stock' => 'required|integer|min:-1|max:99999',
         ];
     }
 }

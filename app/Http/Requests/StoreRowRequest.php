@@ -25,7 +25,7 @@ class StoreRowRequest extends KnocktFormRequest
     {
         return [
             'name' => 'required|max:255',
-            'machine_id' => 'required|exists:machines,id',
+            'machine_id' => 'required|integer|exists:machines,id',
         ];
     }
 }
