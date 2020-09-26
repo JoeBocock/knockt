@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\Common\Responses\NotFoundResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProductRequest;
+use App\Common\Responses\NoContentResponse;
+use App\Http\Requests\UpdateProductRequest;
+use App\Common\Handlers\UpdateProductHandler;
+use App\Http\Resources\Product\Product as ProductResource;
+use App\Http\Resources\Product\Collections\ProductCollection;
 
 class ProductController extends Controller
 {
@@ -14,18 +20,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return NotFoundResponse::send();
+        return new ProductCollection(Product::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        return NotFoundResponse::send();
+        return new ProductResource(Product::create($request->validated()));
     }
 
     /**
@@ -36,7 +42,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return NotFoundResponse::send();
+        $product = Product::find($id);
+
+        if (!$product) {
+            return NotFoundResponse::send();
+        }
+
+        return new ProductResource($product);
     }
 
     /**
@@ -46,9 +58,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
-        return NotFoundResponse::send();
+        $product = Product::find($id);
+
+        if (!$product) {
+            return NotFoundResponse::send();
+        }
+
+        return new ProductResource(
+            UpdateProductHandler::update($product, $request->validated())
+        );
     }
 
     /**
@@ -59,6 +79,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return NotFoundResponse::send();
+        $product = Product::find($id);
+
+        if (!$product) {
+            return NotFoundResponse::send();
+        }
+
+        $product->delete();
+
+        return NoContentResponse::send();
     }
 }
