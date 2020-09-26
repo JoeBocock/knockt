@@ -8,7 +8,10 @@ use App\Http\Requests\IndexSlotsRequest;
 use App\Http\Requests\UpdateSlotRequest;
 use App\Common\Handlers\UpdateSlotHandler;
 use App\Common\Responses\NoContentResponse;
+use App\Http\Requests\PurchaseProductRequest;
 use App\Http\Resources\Slot\Slot as SlotResource;
+use App\Common\Responses\InsufficientFundsResponse;
+use App\Common\Responses\InsufficientStockResponse;
 use App\Http\Resources\Slot\Collections\SlotCollection;
 
 class SlotController extends Controller
@@ -71,5 +74,26 @@ class SlotController extends Controller
         $slot->delete();
 
         return NoContentResponse::send();
+    }
+
+    /**
+     * Purchase the product in the given slot.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function purchaseProductInSlot(PurchaseProductRequest $request, Slot $slot)
+    {
+        if ($slot->product === null || $slot->product->stock <= 0) {
+            return InsufficientStockResponse::send();
+        }
+
+        if ($request->amount < $slot->product->price) {
+            return InsufficientFundsResponse::send();
+        }
+
+        $slot->product->decrement('stock', 1);
+
+        return response()->json(['success' => false]);
     }
 }
