@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 
 class Slot extends Model
 {
+    use HasTimestamps;
+
     public function row()
     {
         return $this->belongsTo(Row::class);
@@ -13,6 +16,6 @@ class Slot extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }
