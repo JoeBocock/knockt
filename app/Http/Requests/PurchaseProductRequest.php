@@ -24,8 +24,7 @@ class PurchaseProductRequest extends KnocktFormRequest
     public function rules()
     {
         return [
-            'slot_id' => 'required|integer|exists:slots,id',
-            'price' => 'required|integer|min:0|max:99999',
+            'amount' => 'required|integer|min:0|max:99999',
         ];
     }
 }
