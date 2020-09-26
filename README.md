@@ -74,13 +74,14 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 
 ## Slots
 
-| Method | Path              | Description                            |
-|--------|-------------------|----------------------------------------|
-| GET    | `/api/slots`      | Lists all Slots belonging to a row     |
-| POST   | `/api/slots`      | Store a new Slot                       |
-| GET    | `/api/slots/{id}` | Retrieve a specific Slot               |
-| PUT    | `/api/slots/{id}` | Update an existing Slot                |
-| DELETE | `/api/slots/{id}` | Remove an existing Slot                |
+| Method | Path                         | Description                          |
+|--------|------------------------------|--------------------------------------|
+| GET    | `/api/slots`                 | Lists all Slots belonging to a row   |
+| POST   | `/api/slots`                 | Store a new Slot                     |
+| GET    | `/api/slots/{id}`            | Retrieve a specific Slot             |
+| PUT    | `/api/slots/{id}`            | Update an existing Slot              |
+| DELETE | `/api/slots/{id}`            | Remove an existing Slot              |
+| POST   | `/api/slots/{slot}/purchase` | Purchase the current Product in Slot |
 
 ## Products
 
