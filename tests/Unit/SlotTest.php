@@ -16,9 +16,7 @@ class SlotTest extends TestCase
      */
     public function they_can_be_retrieved(): void
     {
-        $rowID = Row::first()->id;
-
-        $response = $this->call('GET', '/api/slots', ['row_id' => $rowID]);
+        $response = $this->call('GET', '/api/slots', ['row_id' => Row::first()->id]);
 
         $response->assertStatus(200);
     }
@@ -83,6 +81,28 @@ class SlotTest extends TestCase
         $response = $this->delete('/api/slots/' . $slot->id);
 
         $response->assertStatus(204);
+    }
+
+    /**
+     * Check that the resource provides links.
+     *
+     * @test
+     * @return void
+     */
+    public function it_provides_links(): void
+    {
+        $response = $this->call('GET', '/api/slots', ['row_id' => Row::first()->id]);
+
+        $slotLinks = $response->json('data')[0]['links'];
+
+        $this->assertEmpty(array_diff_key([
+            'index' => '',
+            'store' => '',
+            'show' => '',
+            'update' => '',
+            'destroy' => '',
+            'purchase' => '',
+        ], $slotLinks));
     }
 
     /**

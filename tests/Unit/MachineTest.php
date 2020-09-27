@@ -71,4 +71,25 @@ class MachineTest extends TestCase
 
         $response->assertStatus(204);
     }
+
+    /**
+     * Check that the resource provides links.
+     *
+     * @test
+     * @return void
+     */
+    public function it_provides_links(): void
+    {
+        $response = $this->get('/api/machines');
+
+        $machineLinks = $response->json('data')[0]['links'];
+
+        $this->assertEmpty(array_diff_key([
+            'index' => '',
+            'store' => '',
+            'show' => '',
+            'update' => '',
+            'destroy' => '',
+        ], $machineLinks));
+    }
 }
