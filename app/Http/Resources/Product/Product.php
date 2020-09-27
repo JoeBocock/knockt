@@ -3,10 +3,26 @@
 namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Contracts\HasResourceLinks;
 use App\Http\Resources\Slot\Collections\RelationlessSlotCollection;
 
 class Product extends JsonResource
 {
+    use HasResourceLinks;
+
+    /**
+     * Map the available named routes for this resource
+     *
+     * @var array
+     */
+    private $routeMapping = [
+        'index' => [],
+        'store' => [],
+        'show' => ['product'],
+        'update' => ['product'],
+        'destroy' => ['product'],
+    ];
+
     /**
      * Transform the resource into an array.
      *
@@ -22,6 +38,7 @@ class Product extends JsonResource
             'stock' => $this->stock,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'links' => $this->generateResourceLinks(['product' => $this->id]),
             'slots' => new RelationlessSlotCollection($this->slots),
         ];
     }
