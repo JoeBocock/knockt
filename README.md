@@ -26,11 +26,10 @@ As this project continues to grow and be worked on I will update this README wit
 
 Interested in some front end concept designs? Check out my login form concept for this project on [CodePen](https://codepen.io/joebocock/pen/NWNMzgP)!
 
--   [Vending Machines](#vending-machines)
--   [Machine Rows](#rows)
--   [Row Slots](#row-slots)
--   [Slot Product](#slots)
--   [Product Stock](#product)
+-   [Machines](#machines)
+-   [Rows](#rows)
+-   [Slots](#slots)
+-   [Products](#products)
 
 ## Developement Notes
 
@@ -52,7 +51,7 @@ If you happen to be on Linux, fear not! cpriego has created [Valet Linux](https:
 
 Finally, if you're on Windows I would suggest looking into Docker or Vagrant. Note that Laravel has an in house box called [Homestead](https://laravel.com/docs/7.x/homestead) for Vagrant and you can get setup relatively quickly.
 
-## Vending Machines
+## Machines
 
 | Method | Path                 | Description                 |
 |--------|----------------------|-----------------------------|
