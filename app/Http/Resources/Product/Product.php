@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Common\API\Wrappers\Money;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Contracts\HasResourceLinks;
 use App\Http\Resources\Slot\Collections\RelationlessSlotCollection;
@@ -34,7 +35,7 @@ class Product extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'price' => $this->price,
+            'price' => Money::prettify($this->price),
             'stock' => $this->stock,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
