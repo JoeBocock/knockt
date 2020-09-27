@@ -2,9 +2,9 @@
 
 namespace App\Common\Responses;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Common\Contracts\ResponseInterface;
-use Illuminate\Http\Response;
 
 class NotFoundResponse implements ResponseInterface
 {
@@ -17,8 +17,8 @@ class NotFoundResponse implements ResponseInterface
     {
         return new JsonResponse([
             'error' => 'not_found',
-            'message' => 'Not Found.',
+            'code' => Response::HTTP_NOT_FOUND,
+            'message' => 'We couldn\'t find what you\'re looking for.',
         ], Response::HTTP_NOT_FOUND);
     }
 }
-

@@ -17,6 +17,7 @@ class InsufficientStockResponse implements ResponseInterface
     {
         return new JsonResponse([
             'error' => 'insufficient_Stock',
+            'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             'message' => 'Product is out of stock.',
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }

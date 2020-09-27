@@ -17,6 +17,7 @@ class InsufficientFundsResponse implements ResponseInterface
     {
         return new JsonResponse([
             'error' => 'insufficient_funds',
+            'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             'message' => 'Funds are insufficient to purchase the product.',
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
