@@ -81,16 +81,18 @@ class SlotController extends Controller
     /**
      * Purchase the product in the given slot.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param PurchaseProductRequest $request
+     * @param Slot $slot
+     * @param Money $customerAmount
+     * @return JsonResponse
      */
-    public function purchaseProductInSlot(PurchaseProductRequest $request, Slot $slot)
+    public function purchaseProductInSlot(PurchaseProductRequest $request, Slot $slot, Money $customerAmount): JsonResponse
     {
-        if ($slot->product === null || $slot->product->stock <= 0) {
+        if ($slot->product === null || !$slot->product->inStock()) {
             return InsufficientStockResponse::send();
         }
 
-        if ($request->amount < $slot->product->price) {
+        if (!$customerAmount->GreaterThanOrEqualTo($slot->product->price)) {
             return InsufficientFundsResponse::send();
         }
 
