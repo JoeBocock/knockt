@@ -13,4 +13,9 @@ class Product extends Model
     {
         return $this->hasMany(Slot::class);
     }
+
+    public function inStock(): bool
+    {
+        return $this->stock > 0;
+    }
 }
