@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Slot;
+use Illuminate\Http\JsonResponse;
+use App\Common\API\Wrappers\Money;
 use App\Http\Requests\StoreSlotRequest;
 use App\Http\Requests\IndexSlotsRequest;
 use App\Http\Requests\UpdateSlotRequest;
@@ -19,10 +21,10 @@ class SlotController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\IndexSlotsRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  IndexSlotsRequest  $request
+     * @return SlotCollection
      */
-    public function index(IndexSlotsRequest $request)
+    public function index(IndexSlotsRequest $request): SlotCollection
     {
         return new SlotCollection(Slot::where('row_id', $request->row_id)->get());
     }
@@ -30,10 +32,10 @@ class SlotController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreSlotRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreSlotRequest  $request
+     * @return SlotResource
      */
-    public function store(StoreSlotRequest $request)
+    public function store(StoreSlotRequest $request): SlotResource
     {
         return new SlotResource(Slot::create($request->validated()));
     }
@@ -41,10 +43,10 @@ class SlotController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Slot $slot
+     * @return SlotResource
      */
-    public function show(Slot $slot)
+    public function show(Slot $slot): SlotResource
     {
         return new SlotResource($slot);
     }
@@ -52,11 +54,11 @@ class SlotController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateSlotRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateSlotRequest  $request
+     * @param  Slot $slot
+     * @return SlotResource
      */
-    public function update(UpdateSlotRequest $request, Slot $slot)
+    public function update(UpdateSlotRequest $request, Slot $slot): SlotResource
     {
         return new SlotResource(
             UpdateSlotHandler::update($slot, $request->validated())
@@ -66,10 +68,10 @@ class SlotController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Slot $slot
+     * @return JsonResponse
      */
-    public function destroy(Slot $slot)
+    public function destroy(Slot $slot): JsonResponse
     {
         $slot->delete();
 

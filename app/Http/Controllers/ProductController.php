@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StoreProductRequest;
 use App\Common\Responses\NoContentResponse;
 use App\Http\Requests\UpdateProductRequest;
@@ -15,9 +16,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductCollection
      */
-    public function index()
+    public function index(): ProductCollection
     {
         return new ProductCollection(Product::all());
     }
@@ -25,10 +26,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreProductRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreProductRequest  $request
+     * @return ProductResource
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): ProductResource
     {
         return new ProductResource(Product::create($request->validated()));
     }
@@ -36,10 +37,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Product $product
+     * @return ProductResource
      */
-    public function show(Product $product)
+    public function show(Product $product): ProductResource
     {
         return new ProductResource($product);
     }
@@ -47,11 +48,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateProductRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateProductRequest  $request
+     * @param  Product $product
+     * @return ProductResource
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
         return new ProductResource(
             UpdateProductHandler::update($product, $request->validated())
@@ -61,10 +62,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Product $product
+     * @return JsonResponse
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): JsonResponse
     {
         $product->delete();
 

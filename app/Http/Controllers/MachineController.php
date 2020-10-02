@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Machine;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StoreMachineRequest;
 use App\Common\Responses\NoContentResponse;
 use App\Http\Requests\UpdateMachineRequest;
@@ -15,9 +16,9 @@ class MachineController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return MachineCollection
      */
-    public function index()
+    public function index(): MachineCollection
     {
         return new MachineCollection(Machine::all());
     }
@@ -25,10 +26,10 @@ class MachineController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreMachineRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreMachineRequest  $request
+     * @return MachineResource
      */
-    public function store(StoreMachineRequest $request)
+    public function store(StoreMachineRequest $request): MachineResource
     {
         return new MachineResource(Machine::create($request->validated()));
     }
@@ -36,10 +37,10 @@ class MachineController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Machine $machine
+     * @return MachineResource
      */
-    public function show(Machine $machine)
+    public function show(Machine $machine): MachineResource
     {
         return new MachineResource($machine);
     }
@@ -47,11 +48,11 @@ class MachineController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateMachineRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateMachineRequest  $request
+     * @param  Machine  $machine
+     * @return MachineResource
      */
-    public function update(UpdateMachineRequest $request, Machine $machine)
+    public function update(UpdateMachineRequest $request, Machine $machine): MachineResource
     {
         return new MachineResource(
             UpdateMachineHandler::update($machine, $request->validated())
@@ -61,10 +62,10 @@ class MachineController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Machine  $machine
+     * @return JsonResponse
      */
-    public function destroy(Machine $machine)
+    public function destroy(Machine $machine): JsonResponse
     {
         $machine->delete();
 

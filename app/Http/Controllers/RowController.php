@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Row;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StoreRowRequest;
 use App\Http\Requests\IndexRowsRequest;
 use App\Http\Requests\UpdateRowRequest;
@@ -16,10 +17,10 @@ class RowController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\IndexRowsRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  IndexRowsRequest  $request
+     * @return RowCollection
      */
-    public function index(IndexRowsRequest $request)
+    public function index(IndexRowsRequest $request): RowCollection
     {
         return new RowCollection(Row::where('machine_id', $request->machine_id)->get());
     }
@@ -27,10 +28,10 @@ class RowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreRowRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreRowRequest  $request
+     * @return RowResource
      */
-    public function store(StoreRowRequest $request)
+    public function store(StoreRowRequest $request): RowResource
     {
         return new RowResource(Row::create($request->validated()));
     }
@@ -38,10 +39,10 @@ class RowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Row $row
+     * @return RowResource
      */
-    public function show(Row $row)
+    public function show(Row $row): RowResource
     {
         return new RowResource($row);
     }
@@ -49,11 +50,11 @@ class RowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateRowRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateRowRequest  $request
+     * @param  Row $row
+     * @return RowResource
      */
-    public function update(UpdateRowRequest $request, Row $row)
+    public function update(UpdateRowRequest $request, Row $row): RowResource
     {
         return new RowResource(
             UpdateRowHandler::update($row, $request->validated())
@@ -63,10 +64,10 @@ class RowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Row $row
+     * @return JsonResponse
      */
-    public function destroy(Row $row)
+    public function destroy(Row $row): JsonResponse
     {
         $row->delete();
 
