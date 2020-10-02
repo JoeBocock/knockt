@@ -21,11 +21,22 @@ class Money
     /**
      * Construct the class
      *
-     * @param float $amount
+     * @param int $amount
      */
-    public function __construct(float $amount = 0)
+    public function __construct(int $amount = 0)
     {
-        $this->amount = (int) ($amount * self::SEPARATOR);
+        $this->amount = (int) $amount;
+    }
+
+    /**
+     * Creates a new class instance from float
+     *
+     * @param float $amount
+     * @return Money
+     */
+    public static function constructFromFloat(float $amount): Money
+    {
+        return new static($amount * self::SEPARATOR);
     }
 
     /**
@@ -88,6 +99,6 @@ class Money
      */
     public function GreaterThanOrEqualTo(int $comparisonValue = 0): bool
     {
-        return (bool) $this->amount >= $comparisonValue;
+        return (bool) ($this->amount >= $comparisonValue);
     }
 }
