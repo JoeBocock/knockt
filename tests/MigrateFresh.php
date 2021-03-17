@@ -21,7 +21,12 @@ trait MigrateFresh
     {
         parent::setUp();
 
-        if (!static::$setupRan) {
+        /**
+         * In memory database addresses get lost on test loops.
+         *
+         * Each call creates a new app instance on the stack meaning that the database needs to be refreshed each time.
+         */
+        if (!static::$setupRan || config('database.default') === 'sqlite') {
             Artisan::call('migrate:fresh --seed');
             static::$setupRan = true;
         }

@@ -86,8 +86,10 @@ class SlotController extends Controller
      * @param Money $customerAmount
      * @return JsonResponse
      */
-    public function purchaseProductInSlot(PurchaseProductRequest $request, Slot $slot, Money $customerAmount): JsonResponse
+    public function purchaseProductInSlot(PurchaseProductRequest $request, Slot $slot): JsonResponse
     {
+        $customerAmount = new Money($request->amount);
+
         if ($slot->product === null || !$slot->product->inStock()) {
             return InsufficientStockResponse::send();
         }
