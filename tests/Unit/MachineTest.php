@@ -54,7 +54,7 @@ class MachineTest extends TestCase
      */
     public function it_can_be_updated(): void
     {
-        $response = $this->put('/api/machines/' . rand(1, 10), factory(Machine::class)->raw());
+        $response = $this->put('/api/machines/' . Machine::first()->id, factory(Machine::class)->raw());
 
         $response->assertStatus(200);
     }
@@ -67,7 +67,7 @@ class MachineTest extends TestCase
      */
     public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/machines/' . rand(1, 10));
+        $response = $this->delete('/api/machines/' . Machine::first()->id);
 
         $response->assertStatus(204);
     }
