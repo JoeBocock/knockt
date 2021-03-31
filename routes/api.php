@@ -66,6 +66,7 @@ Route::apiResource('rows', RowController::class);
 |
 */
 Route::apiResource('slots', SlotController::class);
+Route::post('/slots/{slot}/purchase', [SlotController::class, 'purchaseProductInSlot'])->name('slots.purchase');
 
 /*
 |--------------------------------------------------------------------------

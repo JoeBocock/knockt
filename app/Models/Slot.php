@@ -11,6 +11,8 @@ class Slot extends Model
     use HasFactory;
     use HasTimestamps;
 
+    protected $guarded = [];
+
     public function row()
     {
         return $this->belongsTo(Row::class);

@@ -2,67 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\Common\Responses\NotImplementedResponse;
-use Illuminate\Http\Request;
+use App\Common\Fillers\GenericFiller;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Responses\NoContentResponse;
+use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductCollection
      */
-    public function index()
+    public function index(): ProductCollection
     {
-        return NotImplementedResponse::build();
+        return new ProductCollection(Product::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param StoreProductRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductResource
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request): ProductResource
     {
-        return NotImplementedResponse::build();
+        return new ProductResource(Product::create($request->validated()));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Product $product
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductResource
      */
-    public function show($id)
+    public function show(Product $product): ProductResource
     {
-        return NotImplementedResponse::build();
+        return new ProductResource($product);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param UpdateProductRequest $request
+     * @param Product              $product
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
-        return NotImplementedResponse::build();
+        return new ProductResource(
+            GenericFiller::fill($product, $request->validated())
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Product $product
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Product $product): JsonResponse
     {
-        return NotImplementedResponse::build();
+        $product->delete();
+
+        return NoContentResponse::build();
     }
 }

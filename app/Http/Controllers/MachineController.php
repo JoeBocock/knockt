@@ -2,67 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\Common\Responses\NotImplementedResponse;
-use Illuminate\Http\Request;
+use App\Common\Fillers\GenericFiller;
+use App\Http\Requests\Machine\StoreMachineRequest;
+use App\Http\Requests\Machine\UpdateMachineRequest;
+use App\Http\Resources\Machine\MachineCollection;
+use App\Http\Resources\Machine\MachineResource;
+use App\Http\Responses\NoContentResponse;
+use App\Models\Machine;
+use Illuminate\Http\JsonResponse;
 
 class MachineController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return MachineCollection
      */
-    public function index()
+    public function index(): MachineCollection
     {
-        return NotImplementedResponse::build();
+        return new MachineCollection(Machine::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param StoreMachineRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return MachineResource
      */
-    public function store(Request $request)
+    public function store(StoreMachineRequest $request): MachineResource
     {
-        return NotImplementedResponse::build();
+        return new MachineResource(Machine::create($request->validated()));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Machine $machine
      *
-     * @return \Illuminate\Http\Response
+     * @return MachineResource
      */
-    public function show($id)
+    public function show(Machine $machine): MachineResource
     {
-        return NotImplementedResponse::build();
+        return new MachineResource($machine);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param UpdateMachineRequest $request
+     * @param Machine              $machine
      *
-     * @return \Illuminate\Http\Response
+     * @return MachineResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMachineRequest $request, Machine $machine): MachineResource
     {
-        return NotImplementedResponse::build();
+        return new MachineResource(
+            GenericFiller::fill($machine, $request->validated())
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Machine $machine
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Machine $machine): JsonResponse
     {
-        return NotImplementedResponse::build();
+        $machine->delete();
+
+        return NoContentResponse::build();
     }
 }

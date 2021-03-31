@@ -2,67 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Common\Responses\NotImplementedResponse;
-use Illuminate\Http\Request;
+use App\Common\Fillers\GenericFiller;
+use App\Http\Requests\Row\IndexRowsRequest;
+use App\Http\Requests\Row\StoreRowRequest;
+use App\Http\Requests\Row\UpdateRowRequest;
+use App\Http\Resources\Row\RowCollection;
+use App\Http\Resources\Row\RowResource;
+use App\Http\Responses\NoContentResponse;
+use App\Models\Row;
+use Illuminate\Http\JsonResponse;
 
 class RowController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return RowCollection
      */
-    public function index()
+    public function index(IndexRowsRequest $request): RowCollection
     {
-        return NotImplementedResponse::build();
+        return new RowCollection(Row::where('machine_id', $request->machine_id)->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param StoreRowRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return RowResource
      */
-    public function store(Request $request)
+    public function store(StoreRowRequest $request): RowResource
     {
-        return NotImplementedResponse::build();
+        return new RowResource(Row::create($request->validated()));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Row $row
      *
-     * @return \Illuminate\Http\Response
+     * @return RowResource
      */
-    public function show($id)
+    public function show(Row $row): RowResource
     {
-        return NotImplementedResponse::build();
+        return new RowResource($row);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param UpdateRowRequest $request
+     * @param Row              $row
      *
-     * @return \Illuminate\Http\Response
+     * @return RowResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRowRequest $request, Row $row): RowResource
     {
-        return NotImplementedResponse::build();
+        return new RowResource(
+            GenericFiller::fill($row, $request->validated())
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Row $row
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Row $row): JsonResponse
     {
-        return NotImplementedResponse::build();
+        $row->delete();
+
+        return NoContentResponse::build();
     }
 }

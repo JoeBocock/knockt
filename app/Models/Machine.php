@@ -11,6 +11,8 @@ class Machine extends Model
     use HasFactory;
     use HasTimestamps;
 
+    protected $guarded = [];
+
     public function rows()
     {
         return $this->hasMany(Row::class);

@@ -11,6 +11,8 @@ class Product extends Model
     use HasFactory;
     use HasTimestamps;
 
+    protected $guarded = [];
+
     public function slots()
     {
         return $this->hasMany(Slot::class);

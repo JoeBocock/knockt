@@ -11,6 +11,8 @@ class Row extends Model
     use HasFactory;
     use HasTimestamps;
 
+    protected $guarded = [];
+
     public function machine()
     {
         return $this->belongsTo(Machine::class);
