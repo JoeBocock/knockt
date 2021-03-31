@@ -1,7 +1,7 @@
 php:
   preset: laravel
   disabled:
-    - unused_use
+    - no_unused_imports
   finder:
     not-name:
       - index.php
@@ -11,4 +11,3 @@ js:
     not-name:
       - webpack.mix.js
 css: true
-
