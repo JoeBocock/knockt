@@ -27,7 +27,7 @@
     -   [Slots](#slots)
     -   [Products](#products)
 
-# About Knockt
+## About Knockt
 
 Knockt is an example Laravel API implementation that translates the proceses of a Vending machine into a theoretical API.
 
@@ -71,7 +71,7 @@ If any of the above is confusing or you're not to sure what each command is doin
 
 ---
 
-### Local Environment
+## Local Environment
 
 Thanks to Laravel and it's wide range of local tooling, we have quite a few options to get up and running.
 
