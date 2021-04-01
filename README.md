@@ -21,7 +21,7 @@
 -   [Getting Setup](#getting-setup)
     -   [Prerequisites](#prerequisites)
     -   [Local Environment](#local-environment)
-    -   [Required Reading?!](#required-reading?!)
+    -   [Required Reading?!](#required-reading)
 -   [Endpoint Documentation](#endpoint-documentation)
     -   [Rows](#rows)
     -   [Slots](#slots)
@@ -37,7 +37,7 @@ As this project continues to grow and be worked on I will update this README wit
 
 > Interested in some front end concept designs? Check out my login form concept for this project on [CodePen](https://codepen.io/joebocock/pen/NWNMzgP)!
 
-## Developement Notes
+## Development Notes
 
 Using [Microsoft API Best Practices](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design) and common web design methods, this is designed to be as standard as possible with very little deviation. This defines our base response structure, HTTP codes and request handling practices.
 
