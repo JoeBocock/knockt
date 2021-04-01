@@ -37,11 +37,15 @@ As this project continues to grow and be worked on I will update this README wit
 
 > Interested in some front end concept designs? Check out my login form concept for this project on [CodePen](https://codepen.io/joebocock/pen/NWNMzgP)!
 
+---
+
 ## Development Notes
 
 Using [Microsoft API Best Practices](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design) and common web design methods, this is designed to be as standard as possible with very little deviation. This defines our base response structure, HTTP codes and request handling practices.
 
 The only way that base Laravel functionality has been modified is through the use of renderable exceptions within `App\Exceptions\Handler`. If a model is not found, we instead return a more generic 404 response instead of specifiying the exact model that wasn't located.
+
+---
 
 ## Getting Setup
 
@@ -54,7 +58,7 @@ Here's a quick fire list of steps to get started with the project locally. Pleas
 3.  Run `cp .env.example .env` within your working directory.
 4.  Run `php artisan key:generate` within your working directory.
 
-## Required Reading?!
+### Required Reading?!
 
 If any of the above is confusing or you're not to sure what each command is doing, I'll provide a very simple explanation below along with a link to read more on the subject.
 
@@ -64,6 +68,8 @@ If any of the above is confusing or you're not to sure what each command is doin
 4. Finally, we are using a local tool called artisan to generate an application key. This is a Laravel specific step that allows our application to have a unique encryption key. [More can be found on this subject on the Laravel Documentation](https://laravel.com/docs/8.x/configuration#environment-configuration).
 
 > Please Note! The default .ENV file provided with Knockt assumes you are going to use docker as your development environment.
+
+---
 
 ### Local Environment
 
@@ -80,6 +86,8 @@ Assuming you have Docker installed and running, simply run `./vendor/bin/sail up
 As mentioned, Laravel also offers Valet and Homestead. Both of which require further configuration that is beyond this README. You can find the documentation for Valet [here](https://laravel.com/docs/8.x/valet#introduction) and Homestead [here](https://laravel.com/docs/8.x/homestead#introduction).
 
 > Side Note: If you happen to be on Linux and want to use Valet, fear not! cpriego has created [Valet Linux](https://github.com/cpriego/valet-linux).
+
+---
 
 ## Endpoint Documentation
 
