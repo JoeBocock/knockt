@@ -35,7 +35,7 @@ Interested in some front end concept designs? Check out my login form concept fo
 
 I attempt to keep to Laravel as much as is possible while designing an API. I have changed very little base Laravel code and tried to utilise all features as much as possible (without bloating it for the sake of using features).
 
-One of the only changes I've made is extending `\Illuminate\Foundation\Http\FormRequest` with `\App\Common\API\KnocktFormRequest` and overriding `failedValidation` to always return a JSON error bag regardless of incoming request type.
+The only way that base Laravel functionality has been modified is through the use of renderable exceptions within `App\Exceptions\Handler`. If a model is not found, we instead return a more generic 404 response instead of specifiying the exact model that wasn't located.
 
 I'm also following the [Microsoft API Best Practices](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design) document as much as possible as I believe it to be one of the clearest design methodologies for API response structure.
 
@@ -54,7 +54,7 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 ## Machines
 
 | Method | Path                 | Description                 |
-|--------|----------------------|-----------------------------|
+| ------ | -------------------- | --------------------------- |
 | GET    | `/api/machines`      | Lists all Machines          |
 | POST   | `/api/machines`      | Store a new machine         |
 | GET    | `/api/machines/{id}` | Retrieve a specific machine |
@@ -64,7 +64,7 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 ## Rows
 
 | Method | Path             | Description                           |
-|--------|------------------|---------------------------------------|
+| ------ | ---------------- | ------------------------------------- |
 | GET    | `/api/rows`      | Lists all Rows belonging to a machine |
 | POST   | `/api/rows`      | Store a new Row                       |
 | GET    | `/api/rows/{id}` | Retrieve a specific Row               |
@@ -74,7 +74,7 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 ## Slots
 
 | Method | Path                         | Description                          |
-|--------|------------------------------|--------------------------------------|
+| ------ | ---------------------------- | ------------------------------------ |
 | GET    | `/api/slots`                 | Lists all Slots belonging to a row   |
 | POST   | `/api/slots`                 | Store a new Slot                     |
 | GET    | `/api/slots/{id}`            | Retrieve a specific Slot             |
@@ -85,7 +85,7 @@ Finally, if you're on Windows I would suggest looking into Docker or Vagrant. No
 ## Products
 
 | Method | Path                 | Description                 |
-|--------|----------------------|-----------------------------|
+| ------ | -------------------- | --------------------------- |
 | GET    | `/api/products`      | Lists all Products          |
 | POST   | `/api/products`      | Store a new Product         |
 | GET    | `/api/products/{id}` | Retrieve a specific Product |

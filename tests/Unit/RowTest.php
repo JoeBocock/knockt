@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Row;
-use App\Machine;
+use App\Models\Machine;
+use App\Models\Row;
 use Tests\TestCase;
 
 class RowTest extends TestCase
@@ -12,9 +12,10 @@ class RowTest extends TestCase
      * Index the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function they_can_be_retrieved(): void
+    public function theyCanBeRetrieved(): void
     {
         $response = $this->call('GET', '/api/rows', ['machine_id' => Machine::first()->id]);
 
@@ -25,15 +26,15 @@ class RowTest extends TestCase
      * Store the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_stored(): void
+    public function itCanBeStored(): void
     {
-        $row = factory(Row::class)->raw();
-
-        $row['machine_id'] = Row::first()->machine_id;
-
-        $response = $this->post('/api/rows', $row);
+        $response = $this->post('/api/rows', array_merge(
+            Row::factory()->raw(),
+            ['machine_id' => Row::first()->machine_id]
+        ));
 
         $response->assertStatus(201);
     }
@@ -42,11 +43,12 @@ class RowTest extends TestCase
      * View a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_retrieved(): void
+    public function itCanBeRetrieved(): void
     {
-        $response = $this->call('GET', '/api/rows/' . Row::first()->id);
+        $response = $this->call('GET', '/api/rows/'.Row::first()->id);
 
         $response->assertStatus(200);
     }
@@ -55,15 +57,12 @@ class RowTest extends TestCase
      * Update a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_updated(): void
+    public function itCanBeUpdated(): void
     {
-        $row = Row::first();
-
-        $row['name'] = 'Test';
-
-        $response = $this->put('/api/rows/' . $row->id, $row->toArray());
+        $response = $this->put('/api/rows/'.Row::first()->id, Row::factory()->raw());
 
         $response->assertStatus(200);
     }
@@ -72,33 +71,13 @@ class RowTest extends TestCase
      * Delete a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_destroyed(): void
+    public function itCanBeDestroyed(): void
     {
-        $response = $this->delete('/api/rows/' . Row::first()->id);
+        $response = $this->delete('/api/rows/'.Row::first()->id);
 
         $response->assertStatus(204);
-    }
-
-    /**
-     * Check that the resource provides links.
-     *
-     * @test
-     * @return void
-     */
-    public function it_provides_links(): void
-    {
-        $response = $this->call('GET', '/api/rows', ['machine_id' => Machine::first()->id]);
-
-        $rowLinks = $response->json('data')[0]['links'];
-
-        $this->assertEmpty(array_diff_key([
-            'index' => '',
-            'store' => '',
-            'show' => '',
-            'update' => '',
-            'destroy' => '',
-        ], $rowLinks));
     }
 }

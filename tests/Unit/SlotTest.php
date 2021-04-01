@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Row;
-use App\Slot;
+use App\Models\Row;
+use App\Models\Slot;
 use Tests\TestCase;
 
 class SlotTest extends TestCase
@@ -12,9 +12,10 @@ class SlotTest extends TestCase
      * Index the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function they_can_be_retrieved(): void
+    public function theyCanBeRetrieved(): void
     {
         $response = $this->call('GET', '/api/slots', ['row_id' => Row::first()->id]);
 
@@ -25,15 +26,15 @@ class SlotTest extends TestCase
      * Store the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_stored(): void
+    public function itCanBeStored(): void
     {
-        $slot = factory(Slot::class)->raw();
-
-        $slot['row_id'] = Row::first()->id;
-
-        $response = $this->post('/api/slots', $slot);
+        $response = $this->post('/api/slots', array_merge(
+            Slot::factory()->raw(),
+            ['row_id' => Row::first()->id]
+        ));
 
         $response->assertStatus(201);
     }
@@ -42,11 +43,12 @@ class SlotTest extends TestCase
      * View a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_retrieved(): void
+    public function itCanBeRetrieved(): void
     {
-        $response = $this->call('GET', '/api/slots/' . Slot::first()->id);
+        $response = $this->call('GET', '/api/slots/'.Slot::first()->id);
 
         $response->assertStatus(200);
     }
@@ -55,15 +57,12 @@ class SlotTest extends TestCase
      * Update a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_updated(): void
+    public function itCanBeUpdated(): void
     {
-        $slot = Slot::first();
-
-        $slot->name = 'Up';
-
-        $response = $this->put('/api/slots/' . $slot->id, $slot->toArray());
+        $response = $this->put('/api/slots/'.Slot::first()->id, Slot::factory()->raw());
 
         $response->assertStatus(200);
     }
@@ -72,50 +71,12 @@ class SlotTest extends TestCase
      * Delete a single resource.
      *
      * @test
-     * @return void
-     */
-    public function it_can_be_destroyed(): void
-    {
-        $slot = Slot::first();
-
-        $response = $this->delete('/api/slots/' . $slot->id);
-
-        $response->assertStatus(204);
-    }
-
-    /**
-     * Check that the resource provides links.
      *
-     * @test
      * @return void
      */
-    public function it_provides_links(): void
+    public function itCanBeDestroyed(): void
     {
-        $response = $this->call('GET', '/api/slots', ['row_id' => Row::first()->id]);
-
-        $slotLinks = $response->json('data')[0]['links'];
-
-        $this->assertEmpty(array_diff_key([
-            'index' => '',
-            'store' => '',
-            'show' => '',
-            'update' => '',
-            'destroy' => '',
-            'purchase' => '',
-        ], $slotLinks));
-    }
-
-    /**
-     * Purchase the slots current product.
-     *
-     * @test
-     * @return void
-     */
-    public function its_product_can_be_purchased(): void
-    {
-        $slot = Slot::first();
-
-        $response = $this->post('/api/slots/' . $slot->id . '/purchase', ['amount' => 9999]);
+        $response = $this->delete('/api/slots/'.Slot::first()->id);
 
         $response->assertStatus(204);
     }
@@ -124,13 +85,26 @@ class SlotTest extends TestCase
      * Purchase the slots current product.
      *
      * @test
+     *
      * @return void
      */
-    public function must_have_sufficient_funds(): void
+    public function itsProductCanBePurchased(): void
     {
-        $slot = Slot::first();
+        $response = $this->post('/api/slots/'.Slot::first()->id.'/purchase', ['amount' => 9999]);
 
-        $response = $this->post('/api/slots/' . $slot->id . '/purchase', ['amount' => 1]);
+        $response->assertStatus(204);
+    }
+
+    /**
+     * Purchase the slots current product.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function mustHaveSufficientFunds(): void
+    {
+        $response = $this->post('/api/slots/'.Slot::first()->id.'/purchase', ['amount' => 1]);
 
         $response->assertStatus(422);
     }

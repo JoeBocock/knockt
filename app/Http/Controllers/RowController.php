@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Row;
+use App\Common\Fillers\GenericFiller;
+use App\Http\Requests\Row\IndexRowsRequest;
+use App\Http\Requests\Row\StoreRowRequest;
+use App\Http\Requests\Row\UpdateRowRequest;
+use App\Http\Resources\Row\RowCollection;
+use App\Http\Resources\Row\RowResource;
+use App\Http\Responses\NoContentResponse;
+use App\Models\Row;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\StoreRowRequest;
-use App\Http\Requests\IndexRowsRequest;
-use App\Http\Requests\UpdateRowRequest;
-use App\Common\Handlers\UpdateRowHandler;
-use App\Common\Responses\NoContentResponse;
-use App\Http\Resources\Row\Row as RowResource;
-use App\Http\Resources\Row\Collections\RowCollection;
 
 class RowController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexRowsRequest  $request
      * @return RowCollection
      */
     public function index(IndexRowsRequest $request): RowCollection
@@ -28,7 +27,8 @@ class RowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreRowRequest  $request
+     * @param StoreRowRequest $request
+     *
      * @return RowResource
      */
     public function store(StoreRowRequest $request): RowResource
@@ -39,7 +39,8 @@ class RowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Row $row
+     * @param Row $row
+     *
      * @return RowResource
      */
     public function show(Row $row): RowResource
@@ -50,27 +51,29 @@ class RowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateRowRequest  $request
-     * @param  Row $row
+     * @param UpdateRowRequest $request
+     * @param Row              $row
+     *
      * @return RowResource
      */
     public function update(UpdateRowRequest $request, Row $row): RowResource
     {
         return new RowResource(
-            UpdateRowHandler::update($row, $request->validated())
+            GenericFiller::fill($row, $request->validated())
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Row $row
+     * @param Row $row
+     *
      * @return JsonResponse
      */
     public function destroy(Row $row): JsonResponse
     {
         $row->delete();
 
-        return NoContentResponse::send();
+        return NoContentResponse::build();
     }
 }

@@ -19,6 +19,7 @@ interface LabelledInterface
      *
      * @param      $val
      * @param null $default
+     *
      * @return mixed
      */
     public static function Label($val, $default = null);

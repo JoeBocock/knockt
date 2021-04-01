@@ -2,7 +2,7 @@
 
 namespace App\Common\Labels;
 
-use App\Common\Labels\Concerns\HavingLabels;
+use App\Common\Labels\Traits\HavingLabels;
 
 final class MachineLabel implements LabelledInterface
 {

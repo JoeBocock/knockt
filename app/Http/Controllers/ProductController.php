@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Common\Fillers\GenericFiller;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Responses\NoContentResponse;
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\StoreProductRequest;
-use App\Common\Responses\NoContentResponse;
-use App\Http\Requests\UpdateProductRequest;
-use App\Common\Handlers\UpdateProductHandler;
-use App\Http\Resources\Product\Product as ProductResource;
-use App\Http\Resources\Product\Collections\ProductCollection;
 
 class ProductController extends Controller
 {
@@ -26,7 +26,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreProductRequest  $request
+     * @param StoreProductRequest $request
+     *
      * @return ProductResource
      */
     public function store(StoreProductRequest $request): ProductResource
@@ -37,7 +38,8 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Product $product
+     * @param Product $product
+     *
      * @return ProductResource
      */
     public function show(Product $product): ProductResource
@@ -48,27 +50,29 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProductRequest  $request
-     * @param  Product $product
+     * @param UpdateProductRequest $request
+     * @param Product              $product
+     *
      * @return ProductResource
      */
     public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
         return new ProductResource(
-            UpdateProductHandler::update($product, $request->validated())
+            GenericFiller::fill($product, $request->validated())
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Product $product
+     * @param Product $product
+     *
      * @return JsonResponse
      */
     public function destroy(Product $product): JsonResponse
     {
         $product->delete();
 
-        return NoContentResponse::send();
+        return NoContentResponse::build();
     }
 }

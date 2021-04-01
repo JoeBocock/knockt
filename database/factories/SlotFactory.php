@@ -1,14 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Slot;
-use Faker\Generator as Faker;
+use App\Models\Slot;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Slot::class, function (Faker $faker) {
-    return [
-        'name' => $faker->bothify('#?'),
-        'row_id' => $faker->numberBetween(1, 30),
-        'product_id' => $faker->numberBetween(1, 100),
-    ];
-});
+class SlotFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Slot::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->bothify('#?'),
+            'row_id' => rand(1, 30),
+            'product_id' => rand(1, 100),
+        ];
+    }
+}

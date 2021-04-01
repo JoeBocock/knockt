@@ -1,13 +1,29 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Row;
-use Faker\Generator as Faker;
+use App\Models\Row;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Row::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word(),
-        'machine_id' => $faker->numberBetween(1, 10),
-    ];
-});
+class RowFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Row::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->word(),
+            'machine_id' => rand(1, 10),
+        ];
+    }
+}

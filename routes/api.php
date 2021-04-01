@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\MachineController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RowController;
+use App\Http\Controllers\SlotController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -7,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| All routes registered within this file are automatically prefixed with /api
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
@@ -25,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 | [DELETE] /api/machines/{id}  Remove an existing machine
 |
 */
-Route::apiResource('machines', 'MachineController');
+Route::apiResource('machines', MachineController::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +47,7 @@ Route::apiResource('machines', 'MachineController');
 | [DELETE] /api/rows/{id}  Remove an existing row
 |
 */
-Route::apiResource('rows', 'RowController');
+Route::apiResource('rows', RowController::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -59,9 +65,8 @@ Route::apiResource('rows', 'RowController');
 | [POST] /api/slots/{slot}/purchase Purchase the product within a slot.
 |
 */
-Route::apiResource('slots', 'SlotController');
-
-Route::post('/slots/{slot}/purchase', 'SlotController@purchaseProductInSlot')->name('slots.purchase');
+Route::apiResource('slots', SlotController::class);
+Route::post('/slots/{slot}/purchase', [SlotController::class, 'purchaseProductInSlot'])->name('slots.purchase');
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +82,4 @@ Route::post('/slots/{slot}/purchase', 'SlotController@purchaseProductInSlot')->n
 | [DELETE] /api/products/{id}  Remove an existing product
 |
 */
-Route::apiResource('products', 'ProductController');
+Route::apiResource('products', ProductController::class);

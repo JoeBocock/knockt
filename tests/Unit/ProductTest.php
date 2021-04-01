@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Product;
+use App\Models\Product;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -11,9 +11,10 @@ class ProductTest extends TestCase
      * Index the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function they_can_be_retrieved(): void
+    public function theyCanBeRetrieved(): void
     {
         $response = $this->call('GET', '/api/products');
 
@@ -24,11 +25,12 @@ class ProductTest extends TestCase
      * Store the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_stored(): void
+    public function itCanBeStored(): void
     {
-        $response = $this->post('/api/products', factory(Product::class)->raw());
+        $response = $this->post('/api/products', Product::factory()->raw());
 
         $response->assertStatus(201);
     }
@@ -37,11 +39,12 @@ class ProductTest extends TestCase
      * View a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_retrieved(): void
+    public function itCanBeRetrieved(): void
     {
-        $response = $this->call('GET', '/api/products/' . Product::first()->id);
+        $response = $this->call('GET', '/api/products/'.Product::first()->id);
 
         $response->assertStatus(200);
     }
@@ -50,15 +53,12 @@ class ProductTest extends TestCase
      * Update a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_updated(): void
+    public function itCanBeUpdated(): void
     {
-        $product = Product::first();
-
-        $product['price'] = 4000;
-
-        $response = $this->put('/api/products/' . $product->id, $product->toArray());
+        $response = $this->put('/api/products/'.Product::first()->id, Product::factory()->raw());
 
         $response->assertStatus(200);
     }
@@ -67,33 +67,13 @@ class ProductTest extends TestCase
      * Delete a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_destroyed(): void
+    public function itCanBeDestroyed(): void
     {
-        $response = $this->delete('/api/products/' . Product::first()->id);
+        $response = $this->delete('/api/products/'.Product::first()->id);
 
         $response->assertStatus(204);
-    }
-
-    /**
-     * Check that the resource provides links.
-     *
-     * @test
-     * @return void
-     */
-    public function it_provides_links(): void
-    {
-        $response = $this->call('GET', '/api/products');
-
-        $productLinks = $response->json('data')[0]['links'];
-
-        $this->assertEmpty(array_diff_key([
-            'index' => '',
-            'store' => '',
-            'show' => '',
-            'update' => '',
-            'destroy' => '',
-        ], $productLinks));
     }
 }

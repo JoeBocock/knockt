@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use App\Common\Utils\Money;
 use Illuminate\Http\Request;
-use App\Common\API\Wrappers\Money;
 use Illuminate\Support\ServiceProvider;
 
 class MoneyServiceProvider extends ServiceProvider
@@ -30,6 +30,5 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }

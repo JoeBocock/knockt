@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Machine;
+use App\Models\Machine;
 use Tests\TestCase;
 
 class MachineTest extends TestCase
@@ -11,9 +11,10 @@ class MachineTest extends TestCase
      * Index the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function they_can_be_retrieved(): void
+    public function theyCanBeRetrieved(): void
     {
         $response = $this->get('/api/machines');
 
@@ -24,11 +25,12 @@ class MachineTest extends TestCase
      * Store the resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_stored(): void
+    public function itCanBeStored(): void
     {
-        $response = $this->post('/api/machines', factory(Machine::class)->raw());
+        $response = $this->post('/api/machines', Machine::factory()->raw());
 
         $response->assertStatus(201);
     }
@@ -37,11 +39,12 @@ class MachineTest extends TestCase
      * View a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_retrieved(): void
+    public function itCanBeRetrieved(): void
     {
-        $response = $this->get('/api/machines/' . Machine::first()->id);
+        $response = $this->get('/api/machines/'.Machine::first()->id);
 
         $response->assertStatus(200);
     }
@@ -50,11 +53,12 @@ class MachineTest extends TestCase
      * Update a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_updated(): void
+    public function itCanBeUpdated(): void
     {
-        $response = $this->put('/api/machines/' . rand(1, 10), factory(Machine::class)->raw());
+        $response = $this->put('/api/machines/'.Machine::first()->id, Machine::factory()->raw());
 
         $response->assertStatus(200);
     }
@@ -63,33 +67,13 @@ class MachineTest extends TestCase
      * Delete a single resource.
      *
      * @test
+     *
      * @return void
      */
-    public function it_can_be_destroyed(): void
+    public function itCanBeDestroyed(): void
     {
-        $response = $this->delete('/api/machines/' . rand(1, 10));
+        $response = $this->delete('/api/machines/'.Machine::first()->id);
 
         $response->assertStatus(204);
-    }
-
-    /**
-     * Check that the resource provides links.
-     *
-     * @test
-     * @return void
-     */
-    public function it_provides_links(): void
-    {
-        $response = $this->get('/api/machines');
-
-        $machineLinks = $response->json('data')[0]['links'];
-
-        $this->assertEmpty(array_diff_key([
-            'index' => '',
-            'store' => '',
-            'show' => '',
-            'update' => '',
-            'destroy' => '',
-        ], $machineLinks));
     }
 }

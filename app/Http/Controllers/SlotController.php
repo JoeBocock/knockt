@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Slot;
-use Illuminate\Http\JsonResponse;
-use App\Common\API\Wrappers\Money;
-use App\Http\Requests\StoreSlotRequest;
-use App\Http\Requests\IndexSlotsRequest;
-use App\Http\Requests\UpdateSlotRequest;
-use App\Common\Handlers\UpdateSlotHandler;
-use App\Common\Responses\NoContentResponse;
-use App\Http\Requests\PurchaseProductRequest;
-use App\Http\Resources\Slot\Slot as SlotResource;
-use App\Common\Responses\InsufficientFundsResponse;
+use App\Common\Fillers\GenericFiller;
 use App\Common\Responses\InsufficientStockResponse;
-use App\Http\Resources\Slot\Collections\SlotCollection;
+use App\Common\Utils\Money;
+use App\Http\Requests\Slot\IndexSlotsRequest;
+use App\Http\Requests\Slot\PurchaseProductRequest;
+use App\Http\Requests\Slot\StoreSlotRequest;
+use App\Http\Requests\Slot\UpdateSlotRequest;
+use App\Http\Resources\Slot\SlotCollection;
+use App\Http\Resources\Slot\SlotResource;
+use App\Http\Responses\InsufficientFundsResponse;
+use App\Http\Responses\NoContentResponse;
+use App\Models\Slot;
+use Illuminate\Http\JsonResponse;
 
 class SlotController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexSlotsRequest  $request
-     * @return SlotCollection
+     * @return IndexSlotsRequest
      */
     public function index(IndexSlotsRequest $request): SlotCollection
     {
@@ -32,7 +31,8 @@ class SlotController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreSlotRequest  $request
+     * @param StoreSlotRequest $request
+     *
      * @return SlotResource
      */
     public function store(StoreSlotRequest $request): SlotResource
@@ -43,7 +43,8 @@ class SlotController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Slot $slot
+     * @param Slot $slot
+     *
      * @return SlotResource
      */
     public function show(Slot $slot): SlotResource
@@ -54,50 +55,53 @@ class SlotController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateSlotRequest  $request
-     * @param  Slot $slot
+     * @param UpdateSlotRequest $request
+     * @param Slot              $slot
+     *
      * @return SlotResource
      */
     public function update(UpdateSlotRequest $request, Slot $slot): SlotResource
     {
         return new SlotResource(
-            UpdateSlotHandler::update($slot, $request->validated())
+            GenericFiller::fill($slot, $request->validated())
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Slot $slot
+     * @param Slot $slot
+     *
      * @return JsonResponse
      */
     public function destroy(Slot $slot): JsonResponse
     {
         $slot->delete();
 
-        return NoContentResponse::send();
+        return NoContentResponse::build();
     }
 
     /**
      * Purchase the product in the given slot.
      *
      * @param PurchaseProductRequest $request
-     * @param Slot $slot
-     * @param Money $customerAmount
+     * @param Slot                   $slot
+     * @param Money                  $customerAmount
+     *
      * @return JsonResponse
      */
     public function purchaseProductInSlot(PurchaseProductRequest $request, Slot $slot, Money $customerAmount): JsonResponse
     {
-        if ($slot->product === null || !$slot->product->inStock()) {
-            return InsufficientStockResponse::send();
+        if (null === $slot->product || !$slot->product->inStock()) {
+            return InsufficientStockResponse::build();
         }
 
         if (!$customerAmount->GreaterThanOrEqualTo($slot->product->price)) {
-            return InsufficientFundsResponse::send();
+            return InsufficientFundsResponse::build();
         }
 
         $slot->product->decrement('stock', 1);
 
-        return NoContentResponse::send();
+        return NoContentResponse::build();
     }
 }
