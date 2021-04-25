@@ -14,11 +14,14 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function theyCanBeRetrieved(): void
+    public function they_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/products');
+        Product::factory()->create();
+
+        $response = $this->get('/api/products');
 
         $response->assertStatus(200);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -28,11 +31,12 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeStored(): void
+    public function it_can_be_stored(): void
     {
         $response = $this->post('/api/products', Product::factory()->raw());
 
         $response->assertStatus(201);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -42,11 +46,14 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeRetrieved(): void
+    public function it_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/products/'.Product::first()->id);
+        $product = Product::factory()->create();
+
+        $response = $this->get("/api/products/{$product->id}");
 
         $response->assertStatus(200);
+        $this->assertEquals($product->name, $response['data']['name']);
     }
 
     /**
@@ -56,11 +63,15 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeUpdated(): void
+    public function it_can_be_updated(): void
     {
-        $response = $this->put('/api/products/'.Product::first()->id, Product::factory()->raw());
+        $product = Product::factory()->create();
+
+        $response = $this->put("/api/products/{$product->id}", Product::factory()->raw());
 
         $response->assertStatus(200);
+        $this->assertEquals($product->id, $response['data']['id']);
+        $this->assertNotEquals($product->name, $response['data']['name']);
     }
 
     /**
@@ -70,10 +81,13 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeDestroyed(): void
+    public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/products/'.Product::first()->id);
+        $product = Product::factory()->create();
+
+        $response = $this->delete("/api/products/{$product->id}");
 
         $response->assertStatus(204);
+        $this->assertDatabaseMissing('products', ['id' => $product->id]);
     }
 }

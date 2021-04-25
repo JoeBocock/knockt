@@ -15,11 +15,14 @@ class RowTest extends TestCase
      *
      * @return void
      */
-    public function theyCanBeRetrieved(): void
+    public function they_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/rows', ['machine_id' => Machine::first()->id]);
+        $row = Row::factory()->create();
+
+        $response = $this->call('GET', '/api/rows', ['machine_id' => $row->machine_id]);
 
         $response->assertStatus(200);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -29,14 +32,17 @@ class RowTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeStored(): void
+    public function it_can_be_stored(): void
     {
+        $machine = Machine::factory()->create();
+
         $response = $this->post('/api/rows', array_merge(
             Row::factory()->raw(),
-            ['machine_id' => Row::first()->machine_id]
+            ['machine_id' => $machine->id]
         ));
 
         $response->assertStatus(201);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -46,11 +52,14 @@ class RowTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeRetrieved(): void
+    public function it_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/rows/'.Row::first()->id);
+        $row = Row::factory()->create();
+
+        $response = $this->call('GET', "/api/rows/{$row->id}");
 
         $response->assertStatus(200);
+        $this->assertEquals($row->name, $response['data']['name']);
     }
 
     /**
@@ -60,11 +69,15 @@ class RowTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeUpdated(): void
+    public function it_can_be_updated(): void
     {
-        $response = $this->put('/api/rows/'.Row::first()->id, Row::factory()->raw());
+        $row = Row::factory()->create();
+
+        $response = $this->put("/api/rows/{$row->id}", Row::factory()->raw());
 
         $response->assertStatus(200);
+        $this->assertEquals($row->id, $response['data']['id']);
+        $this->assertNotEquals($row->name, $response['data']['name']);
     }
 
     /**
@@ -74,10 +87,13 @@ class RowTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeDestroyed(): void
+    public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/rows/'.Row::first()->id);
+        $row = Row::factory()->create();
+
+        $response = $this->delete("/api/rows/{$row->id}");
 
         $response->assertStatus(204);
+        $this->assertDatabaseMissing('rows', ['id' => $row->id]);
     }
 }

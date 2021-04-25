@@ -14,11 +14,14 @@ class MachineTest extends TestCase
      *
      * @return void
      */
-    public function theyCanBeRetrieved(): void
+    public function they_can_be_retrieved(): void
     {
+        Machine::factory()->create();
+
         $response = $this->get('/api/machines');
 
         $response->assertStatus(200);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -28,11 +31,12 @@ class MachineTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeStored(): void
+    public function it_can_be_stored(): void
     {
         $response = $this->post('/api/machines', Machine::factory()->raw());
 
         $response->assertStatus(201);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -42,11 +46,14 @@ class MachineTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeRetrieved(): void
+    public function it_can_be_retrieved(): void
     {
-        $response = $this->get('/api/machines/'.Machine::first()->id);
+        $machine = Machine::factory()->create();
+
+        $response = $this->get("/api/machines/{$machine->id}");
 
         $response->assertStatus(200);
+        $this->assertEquals($machine->name, $response['data']['name']);
     }
 
     /**
@@ -56,11 +63,15 @@ class MachineTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeUpdated(): void
+    public function it_can_be_updated(): void
     {
-        $response = $this->put('/api/machines/'.Machine::first()->id, Machine::factory()->raw());
+        $machine = Machine::factory()->create();
+
+        $response = $this->put("/api/machines/{$machine->id}", Machine::factory()->raw());
 
         $response->assertStatus(200);
+        $this->assertEquals($machine->id, $response['data']['id']);
+        $this->assertNotEquals($machine->name, $response['data']['name']);
     }
 
     /**
@@ -70,10 +81,13 @@ class MachineTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeDestroyed(): void
+    public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/machines/'.Machine::first()->id);
+        $machine = Machine::factory()->create();
+
+        $response = $this->delete("/api/machines/{$machine->id}");
 
         $response->assertStatus(204);
+        $this->assertDatabaseMissing('machines', ['id' => $machine->id]);
     }
 }
