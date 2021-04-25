@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\Row;
 use App\Models\Slot;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,8 +25,8 @@ class SlotFactory extends Factory
     {
         return [
             'name' => $this->faker->bothify('#?'),
-            'row_id' => rand(1, 30),
-            'product_id' => rand(1, 100),
+            'row_id' => Row::factory(),
+            'product_id' => Product::factory(),
         ];
     }
 }

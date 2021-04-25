@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Machine;
 use App\Models\Row;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,7 @@ class RowFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'machine_id' => rand(1, 10),
+            'machine_id' => Machine::factory(),
         ];
     }
 }
