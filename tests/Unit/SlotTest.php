@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Product;
 use App\Models\Row;
 use App\Models\Slot;
 use Tests\TestCase;
@@ -15,11 +16,14 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function theyCanBeRetrieved(): void
+    public function they_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/slots', ['row_id' => Row::first()->id]);
+        $slot = Slot::factory()->create();
+
+        $response = $this->call('GET', '/api/slots', ['row_id' => $slot->row_id]);
 
         $response->assertStatus(200);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -29,14 +33,17 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeStored(): void
+    public function it_can_be_stored(): void
     {
+        $row = Row::factory()->create();
+
         $response = $this->post('/api/slots', array_merge(
             Slot::factory()->raw(),
-            ['row_id' => Row::first()->id]
+            ['row_id' => $row->id]
         ));
 
         $response->assertStatus(201);
+        $this->assertNotEmpty($response['data']);
     }
 
     /**
@@ -46,11 +53,14 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeRetrieved(): void
+    public function it_can_be_retrieved(): void
     {
-        $response = $this->call('GET', '/api/slots/'.Slot::first()->id);
+        $slot = Slot::factory()->create();
+
+        $response = $this->get("/api/slots/{$slot->id}");
 
         $response->assertStatus(200);
+        $this->assertEquals($slot->name, $response['data']['name']);
     }
 
     /**
@@ -60,11 +70,15 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeUpdated(): void
+    public function it_can_be_updated(): void
     {
-        $response = $this->put('/api/slots/'.Slot::first()->id, Slot::factory()->raw());
+        $slot = Slot::factory()->create();
+
+        $response = $this->put("/api/slots/{$slot->id}", Slot::factory()->raw());
 
         $response->assertStatus(200);
+        $this->assertEquals($slot->id, $response['data']['id']);
+        $this->assertNotEquals($slot->name, $response['data']['name']);
     }
 
     /**
@@ -74,11 +88,14 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function itCanBeDestroyed(): void
+    public function it_can_be_destroyed(): void
     {
-        $response = $this->delete('/api/slots/'.Slot::first()->id);
+        $slot = Slot::factory()->create();
+
+        $response = $this->delete("/api/slots/{$slot->id}");
 
         $response->assertStatus(204);
+        $this->assertDatabaseMissing('slots', ['id' => $slot->id]);
     }
 
     /**
@@ -88,11 +105,17 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function itsProductCanBePurchased(): void
+    public function its_product_can_be_purchased(): void
     {
-        $response = $this->post('/api/slots/'.Slot::first()->id.'/purchase', ['amount' => 9999]);
+        $slot = Slot::factory()->create();
+        $product = Product::find($slot->product_id);
+
+        $response = $this->post("/api/slots/{$slot->id}/purchase", ['amount' => 9999]);
+
+        $lowerStockProduct = Product::find($slot->product_id);
 
         $response->assertStatus(204);
+        $this->assertLessThan($product->stock, $lowerStockProduct->stock);
     }
 
     /**
@@ -102,9 +125,11 @@ class SlotTest extends TestCase
      *
      * @return void
      */
-    public function mustHaveSufficientFunds(): void
+    public function must_have_sufficient_funds(): void
     {
-        $response = $this->post('/api/slots/'.Slot::first()->id.'/purchase', ['amount' => 1]);
+        $slot = Slot::factory()->create();
+
+        $response = $this->post("/api/slots/{$slot->id}/purchase", ['amount' => 1]);
 
         $response->assertStatus(422);
     }
