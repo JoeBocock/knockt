@@ -62,8 +62,8 @@ Here's a quick fire list of steps to get started with the project locally. Pleas
 
 If any of the above is confusing or you're not to sure what each command is doing, I'll provide a very simple explanation below along with a link to read more on the subject.
 
-1. Here we are cloning the repository with a source control tool called **git**. If you're not sure what git it, I'd suggest reading up on that before trying to tackle this project. [Here's the offical git documenation](https://git-scm.com/doc), they have some great videos explaining the concept.
-2. Composer is a PHP dependacy manager that handles a lot of tedious and often error prone work. [Here's the offical Composer documenation](https://getcomposer.org/).
+1. Here we are cloning the repository with a source control tool called **git**. If you're not sure what git is, I'd suggest reading up on that before trying to tackle this project. [Here's the offical git documenation](https://git-scm.com/doc), they have some great videos explaining the concept.
+2. Composer is a PHP dependency manager that handles a lot of tedious and often error prone work. [Here's the offical Composer documenation](https://getcomposer.org/).
 3. Here we are simply copying an existing example configuration file. .ENV files often contain sensitive information for your application and as such, shouldn't be commited to version control. [Here's the github page for phpdotenv](https://github.com/vlucas/phpdotenv).
 4. Finally, we are using a local tool called artisan to generate an application key. This is a Laravel specific step that allows our application to have a unique encryption key. [More can be found on this subject on the Laravel Documentation](https://laravel.com/docs/8.x/configuration#environment-configuration).
 
