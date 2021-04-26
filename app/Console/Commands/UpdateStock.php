@@ -57,6 +57,12 @@ class UpdateStock extends Command
         }
 
         if ($this->option('decrement')) {
+            if (0 === (int) $product->stock) {
+                $this->error('Stock level is already at 0, cannot be decremented further.');
+
+                return 1;
+            }
+
             $product->decrement('stock', 1);
             $this->info("Product: {$product->name} was successfully decremented.");
 
@@ -65,8 +71,8 @@ class UpdateStock extends Command
 
         $newStockAmount = $this->ask("Product: {$product->name} currently has a stock of {$product->stock}, what should the new value be?");
 
-        if (!is_numeric($newStockAmount)) {
-            $this->error('Value provided was not numeric, operation aborted.');
+        if (!is_numeric($newStockAmount) || 0 > $newStockAmount) {
+            $this->error('Invalid value provided, operation aborted.');
 
             return 1;
         }
