@@ -74,7 +74,6 @@ class UpdateStockCommandTest extends TestCase
 
         $this->artisan("product:update-stock {$product->id}")
             ->expectsQuestion("Product: {$product->name} currently has a stock of {$product->stock}, what should the new value be?", 'Not a number')
-            ->expectsOutput('Value provided was not numeric, operation aborted.')
             ->assertExitCode(1);
     }
 
@@ -91,11 +90,42 @@ class UpdateStockCommandTest extends TestCase
 
         $this->artisan("product:update-stock {$product->id}")
             ->expectsQuestion("Product: {$product->name} currently has a stock of {$product->stock}, what should the new value be?", 10)
-            ->expectsOutput("Product: {$product->name} was successfully updated.")
             ->assertExitCode(0);
 
         $correctedProduct = Product::find($product->id);
 
         $this->assertEquals($correctedProduct->stock, 10);
+    }
+
+    /**
+     * The command should not allow a stock value to go below zero.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function decrement_should_not_go_below_zero(): void
+    {
+        $product = Product::factory()->create(['stock' => 0]);
+
+        $this->artisan("product:update-stock {$product->id} --decrement")
+            ->expectsOutput('Stock level is already at 0, cannot be decremented further.')
+            ->assertExitCode(1);
+    }
+
+    /**
+     * The command should not allow a stock value to go below zero.
+     *
+     * @test
+     *
+     * @return void
+     */
+    public function manual_entry_should_not_go_below_zero(): void
+    {
+        $product = Product::factory()->create(['stock' => 0]);
+
+        $this->artisan("product:update-stock {$product->id}")
+            ->expectsQuestion("Product: {$product->name} currently has a stock of {$product->stock}, what should the new value be?", -1)
+            ->assertExitCode(1);
     }
 }
