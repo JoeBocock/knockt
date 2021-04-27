@@ -50,20 +50,20 @@ class UpdateStock extends Command
         }
 
         if ($this->option('increment')) {
-            $product->increment('stock', 1);
+            $product->increment('stock');
             $this->info("Product: {$product->name} was successfully incremented.");
 
             return 0;
         }
 
         if ($this->option('decrement')) {
-            if (0 === (int) $product->stock) {
+            if (!$product->inStock()) {
                 $this->error('Stock level is already at 0, cannot be decremented further.');
 
                 return 1;
             }
 
-            $product->decrement('stock', 1);
+            $product->decrement('stock');
             $this->info("Product: {$product->name} was successfully decremented.");
 
             return 0;

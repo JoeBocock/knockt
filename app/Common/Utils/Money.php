@@ -67,7 +67,7 @@ class Money
      */
     public function prettified(): string
     {
-        return (string) '£'.number_format($this->amount / self::SEPARATOR, 2);
+        return self::prettify($this->amount);
     }
 
     /**

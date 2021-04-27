@@ -100,7 +100,7 @@ class SlotController extends Controller
             return InsufficientFundsResponse::build();
         }
 
-        $slot->product->decrement('stock', 1);
+        $slot->product->decrement('stock');
 
         return NoContentResponse::build();
     }
