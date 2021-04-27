@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GenericFiller implements FillerInterface
 {
+    /** @inheritDoc */
     public static function fill(Model $model, array $data): Model
     {
         $model->fill($data);
