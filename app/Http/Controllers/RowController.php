@@ -12,6 +12,9 @@ use App\Http\Responses\NoContentResponse;
 use App\Models\Row;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Row
+ */
 class RowController extends Controller
 {
     /**

@@ -11,6 +11,11 @@ use App\Http\Responses\NoContentResponse;
 use App\Models\Machine;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Machines
+ * @apiResource App\Resources\MachineResource
+ * @apiResourceModel App\Models\Machine
+ */
 class MachineController extends Controller
 {
     /**

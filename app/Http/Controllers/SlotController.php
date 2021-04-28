@@ -16,6 +16,9 @@ use App\Http\Responses\NoContentResponse;
 use App\Models\Slot;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Slot
+ */
 class SlotController extends Controller
 {
     /**

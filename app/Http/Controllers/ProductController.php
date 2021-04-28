@@ -11,6 +11,9 @@ use App\Http\Responses\NoContentResponse;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Products
+ */
 class ProductController extends Controller
 {
     /**
