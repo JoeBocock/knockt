@@ -96,3 +96,5 @@ As mentioned, Laravel also offers Valet and Homestead. Both of which require fur
 | GET    | `/api/posts/{id}`    | Retrieve a specific Post    |
 | PUT    | `/api/posts/{id}`    | Update an existing Post     |
 | DELETE | `/api/posts/{id}`    | Remove an existing Post     |
+
+> Note: There's a [Postman Collection](https://github.com/JoeBocock/knockt/blob/master/Knockt.postman_collection.json) in the repository if that works for you. Know that you may need to setup the `{{URL}}` environment variable, which is usually `http://localhost/api`.
