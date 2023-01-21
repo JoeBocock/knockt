@@ -23,13 +23,11 @@
     -   [Local Environment](#local-environment)
     -   [Required Reading?!](#required-reading)
 -   [Endpoint Documentation](#endpoint-documentation)
-    -   [Rows](#rows)
-    -   [Slots](#slots)
-    -   [Products](#products)
+    -   [Posts](#posts)
 
 ## About Knockt
 
-Knockt is an example Laravel API implementation that translates the proceses of a Vending machine into a theoretical API.
+Knockt is an example Laravel API implementation.
 
 Developed originally to teach junior PHP developers how to utilise Laravel, it's now a lightweight showcase of common features people can often see as ✨*magic*✨.
 
@@ -42,8 +40,6 @@ As this project continues to grow and be worked on I will update this README wit
 ## Development Notes
 
 Using [Microsoft API Best Practices](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design) and common web design methods, this is designed to be as standard as possible with very little deviation. This defines our base response structure, HTTP codes and request handling practices.
-
-The only way that base Laravel functionality has been modified is through the use of renderable exceptions within `App\Exceptions\Handler`. If a model is not found, we instead return a more generic 404 response instead of specifiying the exact model that wasn't located.
 
 ---
 
@@ -75,7 +71,7 @@ If any of the above is confusing or you're not to sure what each command is doin
 
 Thanks to Laravel and it's wide range of local tooling, we have quite a few options to get up and running.
 
-Our application currently requires PHP 7.4 and MySQL 8 as it's core building blocks of infastructure. If you have the knowledge to locally configure Apache or Nginx and prefer to work that way, go ahead! Please note I won't provide any support for this local tooling however.
+Our application currently requires PHP 8.1 and MySQL 8 as it's core building blocks of infastructure. If you have the knowledge to locally configure Apache or Nginx and prefer to work that way, go ahead! Please note I won't provide any support for this local tooling however.
 
 The main three development tools provided by Laravel out of the box are Sail, Valet and Homestead. But what are they?
 
@@ -91,43 +87,12 @@ As mentioned, Laravel also offers Valet and Homestead. Both of which require fur
 
 ## Endpoint Documentation
 
-### Machines
+### Posts
 
 | Method | Path                 | Description                 |
 | ------ | -------------------- | --------------------------- |
-| GET    | `/api/machines`      | Lists all Machines          |
-| POST   | `/api/machines`      | Store a new machine         |
-| GET    | `/api/machines/{id}` | Retrieve a specific machine |
-| PUT    | `/api/machines/{id}` | Update an existing machine  |
-| DELETE | `/api/machines/{id}` | Remove an existing machine  |
-
-### Rows
-
-| Method | Path             | Description                           |
-| ------ | ---------------- | ------------------------------------- |
-| GET    | `/api/rows`      | Lists all Rows belonging to a machine |
-| POST   | `/api/rows`      | Store a new Row                       |
-| GET    | `/api/rows/{id}` | Retrieve a specific Row               |
-| PUT    | `/api/rows/{id}` | Update an existing Row                |
-| DELETE | `/api/rows/{id}` | Remove an existing Row                |
-
-### Slots
-
-| Method | Path                         | Description                          |
-| ------ | ---------------------------- | ------------------------------------ |
-| GET    | `/api/slots`                 | Lists all Slots belonging to a row   |
-| POST   | `/api/slots`                 | Store a new Slot                     |
-| GET    | `/api/slots/{id}`            | Retrieve a specific Slot             |
-| PUT    | `/api/slots/{id}`            | Update an existing Slot              |
-| DELETE | `/api/slots/{id}`            | Remove an existing Slot              |
-| POST   | `/api/slots/{slot}/purchase` | Purchase the current Product in Slot |
-
-### Products
-
-| Method | Path                 | Description                 |
-| ------ | -------------------- | --------------------------- |
-| GET    | `/api/products`      | Lists all Products          |
-| POST   | `/api/products`      | Store a new Product         |
-| GET    | `/api/products/{id}` | Retrieve a specific Product |
-| PUT    | `/api/products/{id}` | Update an existing Product  |
-| DELETE | `/api/products/{id}` | Remove an existing Product  |
+| GET    | `/api/posts`         | Lists all Posts             |
+| POST   | `/api/posts`         | Store a new Post            |
+| GET    | `/api/posts/{id}`    | Retrieve a specific Post    |
+| PUT    | `/api/posts/{id}`    | Update an existing Post     |
+| DELETE | `/api/posts/{id}`    | Remove an existing Post     |
